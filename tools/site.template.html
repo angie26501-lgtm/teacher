@@ -133,8 +133,8 @@ details.archive>summary{cursor:pointer;color:var(--muted);font-size:14px;margin-
 .gate-card{max-width:440px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
 .gate-card h2{margin:0}
 .gate-card p{margin:0;color:var(--muted);font-size:14px}
-.gate-card label[for="pw"]{font-weight:700;font-size:14px;margin-top:6px}
-.gate-card input#pw{font:inherit;font-size:16px;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.gate-card label[for^="pw"]{font-weight:700;font-size:14px;margin-top:6px}
+.gate-card input.ans{font:inherit;font-size:16px;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
 .remember{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
 .gate-card button{font:inherit;font-weight:700;font-size:15px;padding:11px;border:0;border-radius:8px;background:var(--accent);color:var(--surface);cursor:pointer}
 .gate-card button:disabled{opacity:.6;cursor:wait}
@@ -151,7 +151,7 @@ footer .wrap{padding-block:18px 28px;display:flex;flex-wrap:wrap;justify-content
     <div class="brand">
       <small>KNSH ENGLISH · YILAN</small>
       <h1>康軒國小英語教學宜蘭資訊網</h1>
-      <p>宜蘭經銷 哈佛文教 昇學用品 整理</p>
+      <p>宜蘭縣國小英語教師專區</p>
     </div>
     <a class="line-cta" id="topLine" href="https://line.me/R/ti/p/@360ddhrm" target="_blank" rel="noopener"><i class="dot"></i>加入 LINE@ 領最新資源</a>
   </div>
@@ -160,9 +160,11 @@ footer .wrap{padding-block:18px 28px;display:flex;flex-wrap:wrap;justify-content
 <div class="wrap gate" id="gate">
   <form class="panel gate-card" id="gateForm">
     <h2>宜蘭國小英語教師專區</h2>
-    <p>本站資源限宜蘭縣國小英語教師使用。請回答下面的問題進入。</p>
-    <label for="pw">宜蘭最親切的在地出版社經銷商是誰？</label>
-    <input id="pw" type="text" placeholder="請輸入答案" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+    <p>本站資源限宜蘭縣國小英語教師使用。請回答兩題通關問題進入。</p>
+    <label for="pw">1. 宜蘭國小在地康軒英語經銷商老闆是誰？</label>
+    <input id="pw" class="ans" type="text" placeholder="請輸入答案" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+    <label for="pw2">2. 公司名稱叫什麼？</label>
+    <input id="pw2" class="ans" type="text" placeholder="請輸入答案" autocomplete="off" autocapitalize="off" spellcheck="false" required>
     <label class="remember" for="remember"><input id="remember" type="checkbox" checked> 記住這台裝置，下次免輸入</label>
     <button type="submit" id="gateBtn">進入資訊網</button>
     <p id="gateMsg" role="alert"></p>
@@ -187,7 +189,7 @@ footer .wrap{padding-block:18px 28px;display:flex;flex-wrap:wrap;justify-content
 
 <footer>
   <div class="wrap">
-    <span>資料整理自哈佛文教 Padlet（2022–2026），陸續更新中。連結失效或需要檔案，請 LINE 我們。</span>
+    <span>資料陸續更新中。連結失效或需要檔案，請 LINE 我們。</span>
     <span>最後更新：2026 年 9 月　<button class="linkbtn" id="logout" type="button" hidden>登出</button></span>
   </div>
 </footer>
@@ -204,7 +206,7 @@ const CATS=[
   {k:"contact",n:"聯絡我們"}
 ];
 const ARCHIVE_BEFORE="2024-01-01";
-let ITEMS=[],FESTS=[],TOOLS=[];
+let ITEMS=[],FESTS=[],TOOLS=[],CONTACT="";
 const ENC=/*ENC*/null/*/ENC*/;
 
 /* ============ 畫面邏輯 ============ */
@@ -278,28 +280,7 @@ function renderFest(){
 }
 
 function renderContact(){
-  view.innerHTML=`<section><div class="sec-head"><h2>聯絡我們</h2><p>康軒國小英語宜蘭經銷｜哈佛文教 昇學用品</p></div>
-  <div class="contact">
-    <div class="panel"><h2>康軒國小英語服務 LINE@</h2>
-      <p>定期發送最新線上研習、教學補充資源與新產品資訊。</p>
-      <div class="copyrow"><code id="lineid">@360ddhrm</code><button class="copybtn" data-copy="lineid" type="button">複製 ID</button></div>
-      <div class="links" style="margin-top:12px"><a class="btn primary" href="https://line.me/R/ti/p/@360ddhrm" ${ext}><span>加入 LINE@</span></a></div>
-      <p style="margin-top:14px">加入後請複製下方資料留言給我們：</p>
-      <div class="form-tpl" id="tpl">服務縣市：
-服務學校：
-教師中文姓名：
-教師 email：</div>
-      <button class="copybtn" data-copy="tpl" type="button">複製填寫範本</button>
-    </div>
-    <div class="panel"><h2>一對一服務群組</h2>
-      <p>Kenny 與 Angie（耿德與芸琪）夫妻代理康軒國小英語教科書。一對一群組可直接詢問教材、樣書、訂購，也提供教科書資訊；可善用關鍵字查詢。</p>
-      <div class="links"><a class="btn primary" href="https://lin.ee/Ox3m8u2" ${ext}><span>加入一對一群組</span></a><a class="btn" href="https://lin.ee/oslzmi2" ${ext}><span>雙語、節慶、教具、繪本資訊</span></a></div>
-    </div>
-    <div class="panel"><h2>業務窗口</h2>
-      <p>樣書漏送、訂購作業簿、需要特定檔案，都可以直接找我們。</p>
-      <div class="links"><a class="btn" href="https://line.me/ti/p/i7nmMi9i6S" ${ext}><span>Kenny 耿德 LINE</span></a><a class="btn" href="https://www.facebook.com/profile.php?id=100076003838060" ${ext}><span>哈佛文教 FB</span></a><a class="btn" href="https://www.knsh.com.tw/_Group/Distribution" ${ext}><span>康軒採購門市</span></a></div>
-    </div>
-  </div></section>`;
+  view.innerHTML=CONTACT;
 }
 
 function renderSearch(term){
@@ -333,14 +314,14 @@ view.addEventListener("click",e=>{
 });
 
 /* ============ 教師登入（問答） ============ */
-const KEY="knsh_yilan_pw";
+const KEY="knsh_yilan_pass2";
 const b64=x=>Uint8Array.from(atob(x),c=>c.charCodeAt(0));
 const norm=pw=>pw.normalize("NFC").replace(/\s+/g,"").toLowerCase();
-async function unlock(pw){
-  const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(norm(pw)),"PBKDF2",false,["deriveKey"]);
+async function unlock(a1,a2){
+  const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(norm(a1)+"\n"+norm(a2)),"PBKDF2",false,["deriveKey"]);
+  const kek=await crypto.subtle.deriveKey({name:"PBKDF2",salt:b64(ENC.salt),iterations:ENC.iter,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["decrypt"]);
   for(const sl of ENC.slots){
     try{
-      const kek=await crypto.subtle.deriveKey({name:"PBKDF2",salt:b64(sl.salt),iterations:ENC.iter,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["decrypt"]);
       const raw=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(sl.iv)},kek,b64(sl.wk));
       const key=await crypto.subtle.importKey("raw",raw,"AES-GCM",false,["decrypt"]);
       const pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(ENC.iv)},key,b64(ENC.ct));
@@ -350,26 +331,26 @@ async function unlock(pw){
   throw new Error("wrong");
 }
 function openSite(data){
-  ITEMS=data.ITEMS;FESTS=data.FESTS;TOOLS=data.TOOLS;
+  ITEMS=data.ITEMS;FESTS=data.FESTS;TOOLS=data.TOOLS;CONTACT=data.CONTACT;
   $("#gate").hidden=true;$("#bar").hidden=false;view.hidden=false;$("#logout").hidden=false;
   route();
 }
 $("#gateForm").addEventListener("submit",async e=>{
   e.preventDefault();
-  const pw=$("#pw").value, btn=$("#gateBtn"), msg=$("#gateMsg");
+  const a1=$("#pw").value, a2=$("#pw2").value, btn=$("#gateBtn"), msg=$("#gateMsg");
   btn.disabled=true;msg.textContent="";
   try{
-    const data=await unlock(pw);
-    if($("#remember").checked){try{localStorage.setItem(KEY,pw);}catch(err){}}
+    const data=await unlock(a1,a2);
+    if($("#remember").checked){try{localStorage.setItem(KEY,JSON.stringify([a1,a2]));}catch(err){}}
     openSite(data);
   }catch(err){
-    msg.textContent=window.crypto&&crypto.subtle?"答案不對喔，再想想看！想不起來可以 LINE 問我們。":"這個瀏覽器無法開啟加密內容，請改用 Chrome、Safari 或 LINE 內建瀏覽器。";
+    msg.textContent=window.crypto&&crypto.subtle?"答案不對喔，再想想看！兩題都要答對，想不起來可以 LINE 問我們。":"這個瀏覽器無法開啟加密內容，請改用 Chrome、Safari 或 LINE 內建瀏覽器。";
   }finally{btn.disabled=false;}
 });
 $("#logout").addEventListener("click",()=>{try{localStorage.removeItem(KEY);}catch(err){} location.hash="";location.reload();});
 (async()=>{
   let saved=null;try{saved=localStorage.getItem(KEY);}catch(err){}
-  if(saved){try{openSite(await unlock(saved));return;}catch(err){try{localStorage.removeItem(KEY);}catch(e2){}}}
+  if(saved){try{const [x,y]=JSON.parse(saved);openSite(await unlock(x,y));return;}catch(err){try{localStorage.removeItem(KEY);}catch(e2){}}}
   $("#pw").focus({preventScroll:true});
 })();
 </script>

@@ -2,9 +2,11 @@
 """康軒國小英語教學宜蘭資訊網：加密建置工具
 
 網站內容（ITEMS / FESTS / TOOLS）以 AES-256-GCM 加密後嵌入頁面，
-內容金鑰為隨機產生，再以每個「登入答案」經 PBKDF2-SHA256 導出的金鑰各包一份（slots），
-任一答案都能解開。明文資料 data.json 不放進儲存庫。
-SITE_PW 可放多個答案，用 | 分隔，例如 SITE_PW='答案一|答案二'。
+兩題通關問題都要答對。內容金鑰為隨機產生，再以「第1題答案＋第2題答案」
+經 PBKDF2-SHA256 導出的金鑰，為每一種可接受的答案組合各包一份（slots）。
+SITE_PW 格式：第1題可接受答案用 | 分隔，兩題之間用 ;; 分隔，
+例如 SITE_PW='吳耿德|kenny|angie;;哈佛文教社|哈佛文教|哈佛'
+解密時只需一組正確答案，例如 SITE_PW='kenny;;哈佛'。明文資料 data.json 不放進儲存庫。
 
   解密（取回目前內容）：
     SITE_PW=密碼 python3 tools/build.py decrypt index.html data.json
@@ -22,20 +24,21 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE = os.path.join(HERE, "site.template.html")
 MARK = re.compile(r"/\*ENC\*/.*?/\*/ENC\*/", re.S)
 
-def norm(pw): return re.sub(r"\s+", "", unicodedata.normalize("NFC", pw)).lower().encode()
-def key(pw, salt, it): return pbkdf2_hmac("sha256", norm(pw), salt, it, 32)
+def norm(pw): return re.sub(r"\s+", "", unicodedata.normalize("NFC", pw)).lower()
+def key(a1, a2, salt, it): return pbkdf2_hmac("sha256", (norm(a1) + "\n" + norm(a2)).encode(), salt, it, 32)
 b64 = lambda b: base64.b64encode(b).decode()
 
 def build(data_path, out_page, out_artifact=None):
-    answers = [a for a in os.environ["SITE_PW"].split("|") if a.strip()]
+    q1, q2 = [[a for a in part.split("|") if a.strip()] for part in os.environ["SITE_PW"].split(";;")]
     data = json.load(open(data_path, encoding="utf-8"))
-    dk, iv = AESGCM.generate_key(256), os.urandom(12)
+    dk, iv, salt = AESGCM.generate_key(256), os.urandom(12), os.urandom(16)
     ct = AESGCM(dk).encrypt(iv, json.dumps(data, ensure_ascii=False, separators=(",", ":")).encode(), None)
     slots = []
-    for a in answers:
-        salt, siv = os.urandom(16), os.urandom(12)
-        slots.append({"salt": b64(salt), "iv": b64(siv), "wk": b64(AESGCM(key(a, salt, ITER)).encrypt(siv, dk, None))})
-    enc = json.dumps({"iter": ITER, "iv": b64(iv), "ct": b64(ct), "slots": slots})
+    for a1 in q1:
+        for a2 in q2:
+            siv = os.urandom(12)
+            slots.append({"iv": b64(siv), "wk": b64(AESGCM(key(a1, a2, salt, ITER)).encrypt(siv, dk, None))})
+    enc = json.dumps({"iter": ITER, "salt": b64(salt), "iv": b64(iv), "ct": b64(ct), "slots": slots})
     body = MARK.sub(lambda m: "/*ENC*/" + enc + "/*/ENC*/", open(TEMPLATE, encoding="utf-8").read())
     if out_artifact:
         open(out_artifact, "w", encoding="utf-8").write(body)
@@ -48,12 +51,13 @@ def build(data_path, out_page, out_artifact=None):
     print(f"built {out_page}: {len(data['ITEMS'])} items")
 
 def decrypt(page_path, out_data):
-    pw = os.environ["SITE_PW"].split("|")[0]
+    a1, a2 = [part.split("|")[0] for part in os.environ["SITE_PW"].split(";;")]
     enc = json.loads(MARK.search(open(page_path, encoding="utf-8").read()).group(0)[7:-8])
     d = base64.b64decode
+    k = key(a1, a2, d(enc["salt"]), enc["iter"])
     for sl in enc["slots"]:
         try:
-            dk = AESGCM(key(pw, d(sl["salt"]), enc["iter"])).decrypt(d(sl["iv"]), d(sl["wk"]), None)
+            dk = AESGCM(k).decrypt(d(sl["iv"]), d(sl["wk"]), None)
             break
         except Exception:
             continue
