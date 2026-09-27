@@ -1,0 +1,375 @@
+<title>宜蘭康軒英語資訊網</title>
+<meta name="description" content="康軒國小英語教學宜蘭資訊網：研習報名、教材介紹、數位工具、節慶教學資源、課程計畫與講義，一站找齊。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#F5F7F2; --surface:#FFFFFF; --ink:#1C2521; --muted:#5B6961; --line:#DCE3DA;
+  --board:#24503E; --board-2:#1C4133; --chalk:#F3F1E6; --chalk-dim:#C9D3C8;
+  --hl:#F4D35E; --hl-ink:#3A3000; --accent:#24503E; --accent-soft:#E4EEE7; --red:#B5452F;
+  --radius:10px;
+  --f-display:"LXGW WenKai TC","Kaiti TC","STKaiti","BiauKai","Noto Serif TC",serif;
+  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#111714; --surface:#19211D; --ink:#E4EAE5; --muted:#9BA9A1; --line:#2B3630;
+    --board:#1E4636; --board-2:#16372A; --chalk:#F1EFE4; --chalk-dim:#B5C2B7;
+    --hl:#E6C44A; --hl-ink:#2B2300; --accent:#8FCBAE; --accent-soft:#1F2F28; --red:#E58A74;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111714; --surface:#19211D; --ink:#E4EAE5; --muted:#9BA9A1; --line:#2B3630;
+  --board:#1E4636; --board-2:#16372A; --chalk:#F1EFE4; --chalk-dim:#B5C2B7;
+  --hl:#E6C44A; --hl-ink:#2B2300; --accent:#8FCBAE; --accent-soft:#1F2F28; --red:#E58A74;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65;margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--hl);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px}
+
+/* 黑板頁首 */
+.board{background:var(--board);color:var(--chalk);background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:5px 5px}
+.board .wrap{padding-block:22px 18px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+.brand small{display:block;font-size:12px;letter-spacing:.12em;color:var(--chalk-dim)}
+.brand h1{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,5vw,34px);line-height:1.2;margin:4px 0 2px;text-wrap:balance}
+.brand p{margin:0;font-size:13px;color:var(--chalk-dim)}
+.line-cta{display:inline-flex;align-items:center;gap:8px;background:var(--chalk);color:var(--board-2);text-decoration:none;font-weight:700;padding:9px 16px;border-radius:999px;font-size:14px;white-space:nowrap}
+.line-cta:hover{background:var(--hl);color:var(--hl-ink)}
+.line-cta .dot{width:8px;height:8px;border-radius:50%;background:#06C755}
+
+/* 固定導覽列 */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--board-2);border-bottom:1px solid rgba(0,0,0,.2)}
+.bar .wrap{display:flex;flex-direction:column;gap:8px;padding-block:10px}
+.search{position:relative}
+.search input{width:100%;font:inherit;font-size:15px;padding:9px 12px 9px 36px;border-radius:8px;border:1px solid transparent;background:var(--chalk);color:#1C2521}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:#5B6961}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{flex:none;color:var(--chalk-dim);text-decoration:none;font-size:14px;padding:5px 12px;border-radius:999px;border:1px solid rgba(243,241,230,.22)}
+.tabs a[aria-current="page"]{background:var(--chalk);color:var(--board-2);border-color:var(--chalk);font-weight:700}
+.tabs a:hover{color:var(--chalk)}
+
+main.wrap{padding-block:24px 56px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px;margin:0 0 14px}
+.sec-head h2{font-family:var(--f-display);font-size:24px;margin:0;text-wrap:balance}
+.sec-head p{margin:0;color:var(--muted);font-size:13.5px}
+section+section{margin-top:36px}
+
+/* 卡片 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:12.5px;color:var(--muted)}
+.date{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.chip{font-size:12px;padding:1px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.new{font-size:11.5px;font-weight:700;padding:0 6px;background:var(--hl);color:var(--hl-ink);border-radius:3px;letter-spacing:.06em}
+.card h3{font-size:16.5px;line-height:1.45;margin:0;text-wrap:balance}
+.card p{margin:0;color:var(--muted);font-size:14px;white-space:pre-line}
+.links{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.btn{display:inline-flex;align-items:center;gap:4px;font-size:13.5px;text-decoration:none;padding:5px 11px;border-radius:7px;border:1px solid var(--line);color:var(--ink);background:var(--bg);max-width:100%}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--surface);font-weight:500}
+.btn:hover{border-color:var(--accent)}
+.btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.groups{display:flex;flex-direction:column;gap:4px;border-top:1px dashed var(--line);padding-top:8px;margin-top:2px}
+details.g summary{cursor:pointer;font-size:13.5px;color:var(--ink);list-style:none;display:flex;gap:6px;align-items:center}
+details.g summary::-webkit-details-marker{display:none}
+details.g summary::before{content:"＋";color:var(--accent);font-weight:700;width:1em}
+details.g[open] summary::before{content:"－"}
+details.g summary em{font-style:normal;color:var(--muted);font-size:12.5px}
+details.g ul{margin:4px 0 6px;padding-left:1.6em;font-size:13.5px}
+details.g li{margin:2px 0;overflow-wrap:anywhere}
+
+/* 首頁 */
+.home-top{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
+@media (max-width:760px){.home-top{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.panel h2{font-family:var(--f-display);font-size:21px;margin:0 0 10px}
+.newslist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.newslist li{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;padding:9px 0;border-top:1px solid var(--line)}
+.newslist li:first-child{border-top:0;padding-top:0}
+.newslist .date{font-size:12.5px;color:var(--muted);padding-top:2px}
+.newslist a{color:var(--ink);text-decoration:none;font-weight:500}
+.newslist a:hover{color:var(--accent);text-decoration:underline}
+.season{background:var(--hl);color:var(--hl-ink);border-color:transparent}
+.season h2 small{font-family:var(--f-body);font-size:13px;font-weight:400;margin-left:6px}
+.season ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.season a{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 10px;color:var(--hl-ink);text-decoration:none;background:rgba(255,255,255,.45);padding:9px 12px;border-radius:8px;font-weight:700}
+.season a:hover{background:rgba(255,255,255,.75)}
+.season a span{font-weight:400;font-size:13px}
+.tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.tool{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:2px}
+.tool:hover{border-color:var(--accent)}
+.tool b{font-size:15px}
+.tool span{font-size:12.5px;color:var(--muted)}
+
+/* 節慶 */
+.fest-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.fest-nav a{font-size:13.5px;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--surface);padding:4px 12px;border-radius:999px}
+.fest-nav a.now{background:var(--hl);color:var(--hl-ink);border-color:transparent;font-weight:700}
+.fest{scroll-margin-top:130px}
+.fest-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:12px}
+.fest-h h3{font-family:var(--f-display);font-size:22px;margin:0}
+.fest-h .en{font-size:13px;color:var(--muted);letter-spacing:.04em}
+.fest-h .mo{margin-left:auto;font-size:12.5px;color:var(--muted)}
+
+details.archive{margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
+details.archive>summary{cursor:pointer;color:var(--muted);font-size:14px;margin-bottom:12px}
+.note{font-size:13px;color:var(--muted);margin:0 0 14px}
+.empty{color:var(--muted);padding:24px 0}
+
+/* 聯絡 */
+.contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.contact .panel p{margin:0 0 10px;color:var(--muted);font-size:14px}
+.copyrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.copyrow code{font-family:var(--f-body);font-weight:700;font-size:15px;background:var(--bg);border:1px solid var(--line);padding:3px 10px;border-radius:6px;user-select:all}
+.copybtn{font:inherit;font-size:13px;padding:4px 10px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.form-tpl{background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;font-size:14px;white-space:pre-line;margin:6px 0 10px;user-select:all}
+
+.gate{padding-block:32px 48px}
+.gate-card{max-width:440px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.gate-card h2{margin:0}
+.gate-card p{margin:0;color:var(--muted);font-size:14px}
+.gate-card label[for="pw"]{font-weight:700;font-size:14px;margin-top:6px}
+.gate-card input#pw{font:inherit;font-size:16px;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.remember{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+.gate-card button{font:inherit;font-weight:700;font-size:15px;padding:11px;border:0;border-radius:8px;background:var(--accent);color:var(--surface);cursor:pointer}
+.gate-card button:disabled{opacity:.6;cursor:wait}
+#gateMsg{color:var(--red);font-size:14px;min-height:1.4em}
+.gate-help{border-top:1px dashed var(--line);padding-top:12px;font-size:13.5px;color:var(--muted);display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.linkbtn{font:inherit;font-size:12.5px;background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:0}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+footer .wrap{padding-block:18px 28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px}
+@media (prefers-reduced-motion:no-preference){.card,.panel{transition:border-color .15s}}
+</style>
+
+<header class="board">
+  <div class="wrap">
+    <div class="brand">
+      <small>KNSH ENGLISH · YILAN</small>
+      <h1>康軒國小英語教學宜蘭資訊網</h1>
+      <p>宜蘭經銷 哈佛文教 昇學用品 整理</p>
+    </div>
+    <a class="line-cta" id="topLine" href="https://line.me/R/ti/p/@360ddhrm" target="_blank" rel="noopener"><i class="dot"></i>加入 LINE@ 領最新資源</a>
+  </div>
+</header>
+
+<div class="wrap gate" id="gate">
+  <form class="panel gate-card" id="gateForm">
+    <h2>宜蘭國小英語教師專區</h2>
+    <p>本站資源限宜蘭縣國小英語教師使用。請回答下面的問題進入。</p>
+    <label for="pw">宜蘭最親切的在地出版社經銷商是誰？</label>
+    <input id="pw" type="text" placeholder="請輸入答案" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+    <label class="remember" for="remember"><input id="remember" type="checkbox" checked> 記住這台裝置，下次免輸入</label>
+    <button type="submit" id="gateBtn">進入資訊網</button>
+    <p id="gateMsg" role="alert"></p>
+    <div class="gate-help">
+      <span>想不起來答案？加入康軒國小英語服務 LINE@（@360ddhrm），留言您的服務學校與姓名，我們會告訴您。</span>
+      <a class="btn primary" href="https://line.me/R/ti/p/@360ddhrm" target="_blank" rel="noopener"><span>加入 LINE@ 問我們</span></a>
+    </div>
+  </form>
+</div>
+
+<div class="bar" id="bar" hidden>
+  <div class="wrap">
+    <label class="search" for="q">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6"/><path d="m13 13 5 5"/></svg>
+      <input id="q" type="search" placeholder="搜尋：萬聖節、課程計畫、出題、Wonder World…" autocomplete="off" aria-label="搜尋全站資源">
+    </label>
+    <nav class="tabs" aria-label="分類"></nav>
+  </div>
+</div>
+
+<main class="wrap" id="view" hidden></main>
+
+<footer>
+  <div class="wrap">
+    <span>資料整理自哈佛文教 Padlet（2022–2026），陸續更新中。連結失效或需要檔案，請 LINE 我們。</span>
+    <span>最後更新：2026 年 9 月　<button class="linkbtn" id="logout" type="button" hidden>登出</button></span>
+  </div>
+</footer>
+
+<script>
+/* 網站內容已加密（AES-GCM），輸入教師密碼後才在瀏覽器解開。維護方式見 tools/build.py */
+const CATS=[
+  {k:"home",n:"首頁"},
+  {k:"news",n:"研習活動",h:"線上研習、備課場次與報名連結"},
+  {k:"book",n:"教材評選",h:"教材介紹、評選資訊、審查執照與相關商品"},
+  {k:"digital",n:"數位與 AI",h:"康軒官方數位平台、出題工具、電子書與影音頻道"},
+  {k:"fest",n:"節慶資源",h:"依節日整理的學習單、PPT、歌曲、影片與繪本"},
+  {k:"teach",n:"教學資源",h:"課程計畫、SEL、跨領域與繪本教案、講義、英檢"},
+  {k:"contact",n:"聯絡我們"}
+];
+const ARCHIVE_BEFORE="2024-01-01";
+let ITEMS=[],FESTS=[],TOOLS=[];
+const ENC=/*ENC*/null/*/ENC*/;
+
+/* ============ 畫面邏輯 ============ */
+const $=s=>document.querySelector(s);
+const view=$("#view"), q=$("#q");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=d=>d.replace(/-/g,".");
+const NOW=new Date();
+const isNew=d=>(NOW-new Date(d))/864e5<=180;
+const catName=k=>(CATS.find(c=>c.k===k)||{}).n;
+const festOf=k=>FESTS.find(f=>f.k===k);
+const ext='target="_blank" rel="noopener"';
+const byDate=(a,b)=>b.d.localeCompare(a.d);
+
+function card(it,showCat){
+  const chip=showCat?`<span class="chip">${esc(it.c==="fest"?festOf(it.f).n:catName(it.c))}</span>`:(it.tag?`<span class="chip">${esc(it.tag)}</span>`:"");
+  const links=(it.L||[]).map((l,i)=>`<a class="btn${i===0?" primary":""}" href="${esc(l[1])}" ${ext}><span>${esc(l[0])}</span></a>`).join("");
+  const groups=it.G?`<div class="groups">${Object.entries(it.G).map(([g,arr])=>`<details class="g"><summary>${esc(g)} <em>${arr.length} 則</em></summary><ul>${arr.map(x=>`<li><a href="${esc(x[1])}" ${ext}>${esc(x[0])}</a></li>`).join("")}</ul></details>`).join("")}</div>`:"";
+  const noLink=!(it.L&&it.L.length)&&!it.G?`<p style="font-size:13px">需要資料請 <a href="#contact">LINE 洽詢</a></p>`:"";
+  return `<article class="card"><div class="meta"><span class="date">${fmt(it.d)}</span>${chip}${isNew(it.d)?'<span class="new">NEW</span>':""}</div><h3>${esc(it.t)}</h3>${it.s?`<p>${esc(it.s)}</p>`:""}${links?`<div class="links">${links}</div>`:""}${groups}${noLink}</article>`;
+}
+
+function listWithArchive(items){
+  const cur=items.filter(i=>i.d>=ARCHIVE_BEFORE), old=items.filter(i=>i.d<ARCHIVE_BEFORE);
+  let h=cur.length?`<div class="grid">${cur.map(i=>card(i)).join("")}</div>`:"";
+  if(old.length) h+=`<details class="archive"${cur.length?"":" open"}><summary>歷年資料（${old.length} 則，2022–2023，部分舊連結可能已失效）</summary><div class="grid">${old.map(i=>card(i)).join("")}</div></details>`;
+  return h;
+}
+
+function upcomingFests(){
+  const m=NOW.getMonth()+1, nx=m%12+1;
+  const list=FESTS.filter(f=>f.m.includes(m)||f.m.includes(nx));
+  return list.length?list:FESTS.slice(0,2);
+}
+
+function renderHome(){
+  const latest=ITEMS.filter(i=>i.c!=="fest").sort(byDate).slice(0,6);
+  const up=upcomingFests();
+  view.innerHTML=`
+  <div class="home-top">
+    <section class="panel">
+      <h2>最新消息</h2>
+      <ul class="newslist">${latest.map(i=>`<li><span class="date">${fmt(i.d)}</span><a href="#${i.c}">${esc(i.t)}</a></li>`).join("")}</ul>
+    </section>
+    <section class="panel season">
+      <h2>近期節慶<small>${NOW.getMonth()+1} 月備課用</small></h2>
+      <ul>${up.map(f=>`<li><a href="#fest-${f.k}">${f.n} ${esc(f.en)}<span>${f.when}・${ITEMS.filter(i=>i.f===f.k).length} 份資源</span></a></li>`).join("")}</ul>
+    </section>
+  </div>
+  <section>
+    <div class="sec-head"><h2>常用工具</h2><p>康軒官方平台，點了直接開</p></div>
+    <div class="tools">${TOOLS.map(t=>`<a class="tool" href="${esc(t[2])}" ${ext}><b>${esc(t[0])}</b><span>${esc(t[1])}</span></a>`).join("")}</div>
+  </section>
+  <section>
+    <div class="sec-head"><h2>分類瀏覽</h2><p>全站共 ${ITEMS.length} 則資源</p></div>
+    <div class="tools">${CATS.filter(c=>c.h).map(c=>`<a class="tool" href="#${c.k}"><b>${c.n}</b><span>${ITEMS.filter(i=>i.c===c.k).length} 則｜${esc(c.h)}</span></a>`).join("")}</div>
+  </section>`;
+}
+
+function renderCat(k){
+  const c=CATS.find(x=>x.k===k);
+  view.innerHTML=`<section><div class="sec-head"><h2>${c.n}</h2><p>${esc(c.h)}</p></div>${listWithArchive(ITEMS.filter(i=>i.c===k).sort(byDate))}</section>`;
+}
+
+function renderFest(){
+  const upKeys=upcomingFests().map(f=>f.k);
+  view.innerHTML=`<section><div class="sec-head"><h2>節慶資源</h2><p>依學年順序排列，螢光標示為近期節日</p></div>
+  <nav class="fest-nav">${FESTS.map(f=>`<a href="#fest-${f.k}" class="${upKeys.includes(f.k)?"now":""}">${f.n}</a>`).join("")}</nav>
+  ${FESTS.map(f=>{const its=ITEMS.filter(i=>i.f===f.k).sort(byDate);return `<div class="fest" id="fest-${f.k}"><div class="fest-h"><h3>${f.n}</h3><span class="en">${esc(f.en)}</span><span class="mo">${f.when}</span></div><div class="grid">${its.map(i=>card(i)).join("")}</div></div>`}).join('<div style="height:28px"></div>')}
+  </section>`;
+}
+
+function renderContact(){
+  view.innerHTML=`<section><div class="sec-head"><h2>聯絡我們</h2><p>康軒國小英語宜蘭經銷｜哈佛文教 昇學用品</p></div>
+  <div class="contact">
+    <div class="panel"><h2>康軒國小英語服務 LINE@</h2>
+      <p>定期發送最新線上研習、教學補充資源與新產品資訊。</p>
+      <div class="copyrow"><code id="lineid">@360ddhrm</code><button class="copybtn" data-copy="lineid" type="button">複製 ID</button></div>
+      <div class="links" style="margin-top:12px"><a class="btn primary" href="https://line.me/R/ti/p/@360ddhrm" ${ext}><span>加入 LINE@</span></a></div>
+      <p style="margin-top:14px">加入後請複製下方資料留言給我們：</p>
+      <div class="form-tpl" id="tpl">服務縣市：
+服務學校：
+教師中文姓名：
+教師 email：</div>
+      <button class="copybtn" data-copy="tpl" type="button">複製填寫範本</button>
+    </div>
+    <div class="panel"><h2>一對一服務群組</h2>
+      <p>Kenny 與 Angie（耿德與芸琪）夫妻代理康軒國小英語教科書。一對一群組可直接詢問教材、樣書、訂購，也提供教科書資訊；可善用關鍵字查詢。</p>
+      <div class="links"><a class="btn primary" href="https://lin.ee/Ox3m8u2" ${ext}><span>加入一對一群組</span></a><a class="btn" href="https://lin.ee/oslzmi2" ${ext}><span>雙語、節慶、教具、繪本資訊</span></a></div>
+    </div>
+    <div class="panel"><h2>業務窗口</h2>
+      <p>樣書漏送、訂購作業簿、需要特定檔案，都可以直接找我們。</p>
+      <div class="links"><a class="btn" href="https://line.me/ti/p/i7nmMi9i6S" ${ext}><span>Kenny 耿德 LINE</span></a><a class="btn" href="https://www.facebook.com/profile.php?id=100076003838060" ${ext}><span>哈佛文教 FB</span></a><a class="btn" href="https://www.knsh.com.tw/_Group/Distribution" ${ext}><span>康軒採購門市</span></a></div>
+    </div>
+  </div></section>`;
+}
+
+function renderSearch(term){
+  const t=term.trim().toLowerCase();
+  const hay=i=>[i.t,i.s,i.tag,i.c==="fest"?festOf(i.f).n+festOf(i.f).en:catName(i.c),...(i.L||[]).map(l=>l[0]),...Object.entries(i.G||{}).flatMap(([g,a])=>[g,...a.map(x=>x[0])])].join(" ").toLowerCase();
+  const res=ITEMS.filter(i=>t.split(/\s+/).every(w=>hay(i).includes(w))).sort(byDate);
+  view.innerHTML=`<section><div class="sec-head"><h2>搜尋「${esc(term.trim())}」</h2><p>找到 ${res.length} 則</p></div>${res.length?`<div class="grid">${res.map(i=>card(i,true)).join("")}</div>`:`<p class="empty">沒有找到相符的資源。換個關鍵字試試，或 <a href="#contact">LINE 問我們</a>。</p>`}</section>`;
+}
+
+function route(){
+  if(q.value.trim()){renderSearch(q.value);setTab(null);return;}
+  let h=(location.hash||"#home").slice(1), anchor=null;
+  if(h.startsWith("fest-")){anchor=h;h="fest";}
+  if(!CATS.some(c=>c.k===h)) h="home";
+  setTab(h);
+  if(h==="home")renderHome(); else if(h==="fest")renderFest(); else if(h==="contact")renderContact(); else renderCat(h);
+  if(anchor){const el=document.getElementById(anchor); if(el) el.scrollIntoView();} else window.scrollTo(0,0);
+}
+function setTab(k){document.querySelectorAll(".tabs a").forEach(a=>{if(a.dataset.k===k){a.setAttribute("aria-current","page");a.scrollIntoView({block:"nearest",inline:"nearest"});}else a.removeAttribute("aria-current");});}
+
+document.querySelector(".tabs").innerHTML=CATS.map(c=>`<a href="#${c.k}" data-k="${c.k}">${c.n}</a>`).join("");
+document.querySelector(".tabs").addEventListener("click",()=>{q.value="";});
+window.addEventListener("hashchange",route);
+let timer; q.addEventListener("input",()=>{clearTimeout(timer);timer=setTimeout(()=>{if(!q.value.trim())route();else{renderSearch(q.value);setTab(null);}},150);});
+view.addEventListener("click",e=>{
+  const b=e.target.closest("[data-copy]"); if(!b) return;
+  const el=document.getElementById(b.dataset.copy), txt=el.textContent;
+  const ok=()=>{b.textContent="已複製";setTimeout(()=>b.textContent=b.dataset.copy==="tpl"?"複製填寫範本":"複製 ID",1500);};
+  const fallback=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="已選取，請按複製";};
+  try{navigator.clipboard.writeText(txt).then(ok,fallback);}catch(err){fallback();}
+});
+
+/* ============ 教師登入（問答） ============ */
+const KEY="knsh_yilan_pw";
+const b64=x=>Uint8Array.from(atob(x),c=>c.charCodeAt(0));
+const norm=pw=>pw.normalize("NFC").replace(/\s+/g,"").toLowerCase();
+async function unlock(pw){
+  const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(norm(pw)),"PBKDF2",false,["deriveKey"]);
+  for(const sl of ENC.slots){
+    try{
+      const kek=await crypto.subtle.deriveKey({name:"PBKDF2",salt:b64(sl.salt),iterations:ENC.iter,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["decrypt"]);
+      const raw=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(sl.iv)},kek,b64(sl.wk));
+      const key=await crypto.subtle.importKey("raw",raw,"AES-GCM",false,["decrypt"]);
+      const pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(ENC.iv)},key,b64(ENC.ct));
+      return JSON.parse(new TextDecoder().decode(pt));
+    }catch(e){}
+  }
+  throw new Error("wrong");
+}
+function openSite(data){
+  ITEMS=data.ITEMS;FESTS=data.FESTS;TOOLS=data.TOOLS;
+  $("#gate").hidden=true;$("#bar").hidden=false;view.hidden=false;$("#logout").hidden=false;
+  route();
+}
+$("#gateForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const pw=$("#pw").value, btn=$("#gateBtn"), msg=$("#gateMsg");
+  btn.disabled=true;msg.textContent="";
+  try{
+    const data=await unlock(pw);
+    if($("#remember").checked){try{localStorage.setItem(KEY,pw);}catch(err){}}
+    openSite(data);
+  }catch(err){
+    msg.textContent=window.crypto&&crypto.subtle?"答案不對喔，再想想看！想不起來可以 LINE 問我們。":"這個瀏覽器無法開啟加密內容，請改用 Chrome、Safari 或 LINE 內建瀏覽器。";
+  }finally{btn.disabled=false;}
+});
+$("#logout").addEventListener("click",()=>{try{localStorage.removeItem(KEY);}catch(err){} location.hash="";location.reload();});
+(async()=>{
+  let saved=null;try{saved=localStorage.getItem(KEY);}catch(err){}
+  if(saved){try{openSite(await unlock(saved));return;}catch(err){try{localStorage.removeItem(KEY);}catch(e2){}}}
+  $("#pw").focus({preventScroll:true});
+})();
+</script>
