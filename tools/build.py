@@ -20,6 +20,7 @@ from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from hashlib import pbkdf2_hmac
 
 ITER = 250_000
+Q1_ITER = 100_000
 HERE = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE = os.path.join(HERE, "site.template.html")
 MARK = re.compile(r"/\*ENC\*/.*?/\*/ENC\*/", re.S)
@@ -38,7 +39,15 @@ def build(data_path, out_page, out_artifact=None):
         for a2 in q2:
             siv = os.urandom(12)
             slots.append({"iv": b64(siv), "wk": b64(AESGCM(key(a1, a2, salt, ITER)).encrypt(siv, dk, None))})
-    enc = json.dumps({"iter": ITER, "salt": b64(salt), "iv": b64(iv), "ct": b64(ct), "slots": slots})
+    enc = {"iter": ITER, "salt": b64(salt), "iv": b64(iv), "ct": b64(ct), "slots": slots}
+    if data.get("Q1MSG"):  # 第 1 題答對後的浮動視窗文字，只用第 1 題答案加密
+        s1, msg = os.urandom(16), json.dumps(data["Q1MSG"], ensure_ascii=False).encode()
+        q1s = []
+        for a1 in q1:
+            k1, v1 = pbkdf2_hmac("sha256", norm(a1).encode(), s1, Q1_ITER, 32), os.urandom(12)
+            q1s.append({"iv": b64(v1), "ct": b64(AESGCM(k1).encrypt(v1, msg, None))})
+        enc["q1"] = {"iter": Q1_ITER, "salt": b64(s1), "slots": q1s}
+    enc = json.dumps(enc)
     body = MARK.sub(lambda m: "/*ENC*/" + enc + "/*/ENC*/", open(TEMPLATE, encoding="utf-8").read())
     if out_artifact:
         open(out_artifact, "w", encoding="utf-8").write(body)

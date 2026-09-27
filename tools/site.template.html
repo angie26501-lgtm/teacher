@@ -27,6 +27,7 @@
   --hl:#E6C44A; --hl-ink:#2B2300; --accent:#8FCBAE; --accent-soft:#1F2F28; --red:#E58A74;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65;margin:0}
 a{color:var(--accent)}
 :focus-visible{outline:3px solid var(--hl);outline-offset:2px;border-radius:4px}
@@ -138,6 +139,14 @@ details.archive>summary{cursor:pointer;color:var(--muted);font-size:14px;margin-
 .remember{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
 .gate-card button{font:inherit;font-weight:700;font-size:15px;padding:11px;border:0;border-radius:8px;background:var(--accent);color:var(--surface);cursor:pointer}
 .gate-card button:disabled{opacity:.6;cursor:wait}
+.ans-row{position:relative}
+.ans-row .ok{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--accent);font-weight:700}
+.pop{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(12,24,18,.55)}
+.pop-card{background:var(--surface);color:var(--ink);border-radius:14px;max-width:360px;width:100%;padding:24px 22px 20px;text-align:center;display:flex;flex-direction:column;gap:12px;box-shadow:0 18px 50px rgba(0,0,0,.35);border-top:6px solid var(--hl)}
+.pop-card h3{font-family:var(--f-display);font-size:28px;margin:0;color:var(--accent)}
+.pop-card p{margin:0;font-size:16px;line-height:1.8;white-space:pre-line}
+.pop-card button{font:inherit;font-weight:700;font-size:15px;padding:11px;border:0;border-radius:8px;background:var(--accent);color:var(--surface);cursor:pointer}
+@media (prefers-reduced-motion:no-preference){.pop-card{animation:popin .28s ease-out}@keyframes popin{from{transform:translateY(12px) scale(.96);opacity:.4}to{transform:none;opacity:1}}}
 #gateMsg{color:var(--red);font-size:14px;min-height:1.4em}
 .gate-help{border-top:1px dashed var(--line);padding-top:12px;font-size:13.5px;color:var(--muted);display:flex;flex-direction:column;gap:8px;align-items:flex-start}
 .linkbtn{font:inherit;font-size:12.5px;background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:0}
@@ -162,7 +171,7 @@ footer .wrap{padding-block:18px 28px;display:flex;flex-wrap:wrap;justify-content
     <h2>宜蘭國小英語教師專區</h2>
     <p>本站資源限宜蘭縣國小英語教師使用。請回答兩題通關問題進入。</p>
     <label for="pw">1. 宜蘭國小在地康軒英語經銷商老闆是誰？</label>
-    <input id="pw" class="ans" type="text" placeholder="請輸入答案" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+    <div class="ans-row"><input id="pw" class="ans" type="text" placeholder="輸入答案後按 Enter" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="next" required><span class="ok" id="q1ok" hidden>✓</span></div>
     <label for="pw2">2. 公司名稱叫什麼？</label>
     <input id="pw2" class="ans" type="text" placeholder="請輸入答案" autocomplete="off" autocapitalize="off" spellcheck="false" required>
     <label class="remember" for="remember"><input id="remember" type="checkbox" checked> 記住這台裝置，下次免輸入</label>
@@ -173,6 +182,14 @@ footer .wrap{padding-block:18px 28px;display:flex;flex-wrap:wrap;justify-content
       <a class="btn primary" href="https://line.me/R/ti/p/@360ddhrm" target="_blank" rel="noopener"><span>加入 LINE@ 問我們</span></a>
     </div>
   </form>
+</div>
+
+<div class="pop" id="pop" hidden role="dialog" aria-modal="true" aria-labelledby="popTitle">
+  <div class="pop-card">
+    <h3 id="popTitle"></h3>
+    <p id="popBody"></p>
+    <button type="button" id="popBtn">繼續回答第 2 題</button>
+  </div>
 </div>
 
 <div class="bar" id="bar" hidden>
@@ -335,6 +352,31 @@ function openSite(data){
   $("#gate").hidden=true;$("#bar").hidden=false;view.hidden=false;$("#logout").hidden=false;
   route();
 }
+/* 第 1 題答對：顯示浮動視窗（視窗文字也加密，只有答對才解得開） */
+let q1Shown=false;
+async function checkQ1(){
+  const v=$("#pw").value; if(!v.trim()||!ENC.q1) return false;
+  try{
+    const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(norm(v)),"PBKDF2",false,["deriveKey"]);
+    const k=await crypto.subtle.deriveKey({name:"PBKDF2",salt:b64(ENC.q1.salt),iterations:ENC.q1.iter,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["decrypt"]);
+    for(const sl of ENC.q1.slots){
+      try{
+        const m=JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(sl.iv)},k,b64(sl.ct))));
+        $("#q1ok").hidden=false;
+        if(!q1Shown){q1Shown=true;$("#popTitle").textContent=m.title;$("#popBody").textContent=m.body;$("#pop").hidden=false;$("#popBtn").focus();}
+        return true;
+      }catch(e){}
+    }
+  }catch(e){}
+  $("#q1ok").hidden=true; return false;
+}
+$("#pw").addEventListener("change",checkQ1);
+$("#pw").addEventListener("keydown",async e=>{if(e.key==="Enter"&&!e.isComposing){e.preventDefault();if(await checkQ1()&&q1Shown&&$("#pop").hidden)$("#pw2").focus();}});
+$("#pw").addEventListener("input",()=>{$("#q1ok").hidden=true;});
+$("#popBtn").addEventListener("click",()=>{$("#pop").hidden=true;$("#pw2").focus();});
+$("#pop").addEventListener("click",e=>{if(e.target.id==="pop"){$("#pop").hidden=true;$("#pw2").focus();}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#pop").hidden){$("#pop").hidden=true;$("#pw2").focus();}});
+
 $("#gateForm").addEventListener("submit",async e=>{
   e.preventDefault();
   const a1=$("#pw").value, a2=$("#pw2").value, btn=$("#gateBtn"), msg=$("#gateMsg");
