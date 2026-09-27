@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>宜蘭康軒英語資訊網</title>
+<meta name="description" content="康軒國小英語教學宜蘭資訊網：研習報名、教材介紹、數位工具、節慶教學資源、課程計畫與講義，一站找齊。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#F5F7F2; --surface:#FFFFFF; --ink:#1C2521; --muted:#5B6961; --line:#DCE3DA;
+  --board:#24503E; --board-2:#1C4133; --chalk:#F3F1E6; --chalk-dim:#C9D3C8;
+  --hl:#F4D35E; --hl-ink:#3A3000; --accent:#24503E; --accent-soft:#E4EEE7; --red:#B5452F;
+  --radius:10px;
+  --f-display:"LXGW WenKai TC","Kaiti TC","STKaiti","BiauKai","Noto Serif TC",serif;
+  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#111714; --surface:#19211D; --ink:#E4EAE5; --muted:#9BA9A1; --line:#2B3630;
+    --board:#1E4636; --board-2:#16372A; --chalk:#F1EFE4; --chalk-dim:#B5C2B7;
+    --hl:#E6C44A; --hl-ink:#2B2300; --accent:#8FCBAE; --accent-soft:#1F2F28; --red:#E58A74;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111714; --surface:#19211D; --ink:#E4EAE5; --muted:#9BA9A1; --line:#2B3630;
+  --board:#1E4636; --board-2:#16372A; --chalk:#F1EFE4; --chalk-dim:#B5C2B7;
+  --hl:#E6C44A; --hl-ink:#2B2300; --accent:#8FCBAE; --accent-soft:#1F2F28; --red:#E58A74;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65;margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--hl);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px}
+
+/* 黑板頁首 */
+.board{background:var(--board);color:var(--chalk);background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:5px 5px}
+.board .wrap{padding-block:22px 18px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+.brand small{display:block;font-size:12px;letter-spacing:.12em;color:var(--chalk-dim)}
+.brand h1{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,5vw,34px);line-height:1.2;margin:4px 0 2px;text-wrap:balance}
+.brand p{margin:0;font-size:13px;color:var(--chalk-dim)}
+.line-cta{display:inline-flex;align-items:center;gap:8px;background:var(--chalk);color:var(--board-2);text-decoration:none;font-weight:700;padding:9px 16px;border-radius:999px;font-size:14px;white-space:nowrap}
+.line-cta:hover{background:var(--hl);color:var(--hl-ink)}
+.line-cta .dot{width:8px;height:8px;border-radius:50%;background:#06C755}
+
+/* 固定導覽列 */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--board-2);border-bottom:1px solid rgba(0,0,0,.2)}
+.bar .wrap{display:flex;flex-direction:column;gap:8px;padding-block:10px}
+.search{position:relative}
+.search input{width:100%;font:inherit;font-size:15px;padding:9px 12px 9px 36px;border-radius:8px;border:1px solid transparent;background:var(--chalk);color:#1C2521}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:#5B6961}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{flex:none;color:var(--chalk-dim);text-decoration:none;font-size:14px;padding:5px 12px;border-radius:999px;border:1px solid rgba(243,241,230,.22)}
+.tabs a[aria-current="page"]{background:var(--chalk);color:var(--board-2);border-color:var(--chalk);font-weight:700}
+.tabs a:hover{color:var(--chalk)}
+
+main.wrap{padding-block:24px 56px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px;margin:0 0 14px}
+.sec-head h2{font-family:var(--f-display);font-size:24px;margin:0;text-wrap:balance}
+.sec-head p{margin:0;color:var(--muted);font-size:13.5px}
+section+section{margin-top:36px}
+
+/* 卡片 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:12.5px;color:var(--muted)}
+.date{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.chip{font-size:12px;padding:1px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.new{font-size:11.5px;font-weight:700;padding:0 6px;background:var(--hl);color:var(--hl-ink);border-radius:3px;letter-spacing:.06em}
+.card h3{font-size:16.5px;line-height:1.45;margin:0;text-wrap:balance}
+.card p{margin:0;color:var(--muted);font-size:14px;white-space:pre-line}
+.links{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.btn{display:inline-flex;align-items:center;gap:4px;font-size:13.5px;text-decoration:none;padding:5px 11px;border-radius:7px;border:1px solid var(--line);color:var(--ink);background:var(--bg);max-width:100%}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--surface);font-weight:500}
+.btn:hover{border-color:var(--accent)}
+.btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.groups{display:flex;flex-direction:column;gap:4px;border-top:1px dashed var(--line);padding-top:8px;margin-top:2px}
+details.g summary{cursor:pointer;font-size:13.5px;color:var(--ink);list-style:none;display:flex;gap:6px;align-items:center}
+details.g summary::-webkit-details-marker{display:none}
+details.g summary::before{content:"＋";color:var(--accent);font-weight:700;width:1em}
+details.g[open] summary::before{content:"－"}
+details.g summary em{font-style:normal;color:var(--muted);font-size:12.5px}
+details.g ul{margin:4px 0 6px;padding-left:1.6em;font-size:13.5px}
+details.g li{margin:2px 0;overflow-wrap:anywhere}
+
+/* 首頁 */
+.home-top{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
+@media (max-width:760px){.home-top{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.panel h2{font-family:var(--f-display);font-size:21px;margin:0 0 10px}
+.newslist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.newslist li{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;padding:9px 0;border-top:1px solid var(--line)}
+.newslist li:first-child{border-top:0;padding-top:0}
+.newslist .date{font-size:12.5px;color:var(--muted);padding-top:2px}
+.newslist a{color:var(--ink);text-decoration:none;font-weight:500}
+.newslist a:hover{color:var(--accent);text-decoration:underline}
+.season{background:var(--hl);color:var(--hl-ink);border-color:transparent}
+.season h2 small{font-family:var(--f-body);font-size:13px;font-weight:400;margin-left:6px}
+.season ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.season a{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 10px;color:var(--hl-ink);text-decoration:none;background:rgba(255,255,255,.45);padding:9px 12px;border-radius:8px;font-weight:700}
+.season a:hover{background:rgba(255,255,255,.75)}
+.season a span{font-weight:400;font-size:13px}
+.tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.tool{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:2px}
+.tool:hover{border-color:var(--accent)}
+.tool b{font-size:15px}
+.tool span{font-size:12.5px;color:var(--muted)}
+
+/* 節慶 */
+.fest-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.fest-nav a{font-size:13.5px;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--surface);padding:4px 12px;border-radius:999px}
+.fest-nav a.now{background:var(--hl);color:var(--hl-ink);border-color:transparent;font-weight:700}
+.fest{scroll-margin-top:130px}
+.fest-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:12px}
+.fest-h h3{font-family:var(--f-display);font-size:22px;margin:0}
+.fest-h .en{font-size:13px;color:var(--muted);letter-spacing:.04em}
+.fest-h .mo{margin-left:auto;font-size:12.5px;color:var(--muted)}
+
+details.archive{margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
+details.archive>summary{cursor:pointer;color:var(--muted);font-size:14px;margin-bottom:12px}
+.note{font-size:13px;color:var(--muted);margin:0 0 14px}
+.empty{color:var(--muted);padding:24px 0}
+
+/* 聯絡 */
+.contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.contact .panel p{margin:0 0 10px;color:var(--muted);font-size:14px}
+.copyrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.copyrow code{font-family:var(--f-body);font-weight:700;font-size:15px;background:var(--bg);border:1px solid var(--line);padding:3px 10px;border-radius:6px;user-select:all}
+.copybtn{font:inherit;font-size:13px;padding:4px 10px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.form-tpl{background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;font-size:14px;white-space:pre-line;margin:6px 0 10px;user-select:all}
+
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+footer .wrap{padding-block:18px 28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px}
+@media (prefers-reduced-motion:no-preference){.card,.panel{transition:border-color .15s}}
+</style>
+</head>
+<body>
+
+
+<header class="board">
+  <div class="wrap">
+    <div class="brand">
+      <small>KNSH ENGLISH · YILAN</small>
+      <h1>康軒國小英語教學宜蘭資訊網</h1>
+      <p>宜蘭經銷 哈佛文教 昇學用品｜Kenny &amp; Angie 耿德與芸琪 整理</p>
+    </div>
+    <a class="line-cta" href="https://line.me/R/ti/p/@360ddhrm" target="_blank" rel="noopener"><i class="dot"></i>加入 LINE@ 領最新資源</a>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <label class="search" for="q">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6"/><path d="m13 13 5 5"/></svg>
+      <input id="q" type="search" placeholder="搜尋：萬聖節、課程計畫、出題、Wonder World…" autocomplete="off" aria-label="搜尋全站資源">
+    </label>
+    <nav class="tabs" aria-label="分類"></nav>
+  </div>
+</div>
+
+<main class="wrap" id="view"></main>
+
+<footer>
+  <div class="wrap">
+    <span>資料整理自哈佛文教 Padlet（2022–2026），陸續更新中。連結失效或需要檔案，請 LINE 我們。</span>
+    <span>最後更新：2026 年 9 月</span>
+  </div>
+</footer>
+
+<script>
+/* ============ 資料區：新增資料只要在對應陣列加一筆 ============
+   c: 分類  d: 日期  t: 標題  s: 說明  L: [按鈕文字, 網址]  G: {分組: [[名稱, 網址]]}
+============================================================= */
+const CATS=[
+  {k:"home",n:"首頁"},
+  {k:"news",n:"研習活動",h:"線上研習、備課場次與報名連結"},
+  {k:"book",n:"教材評選",h:"教材介紹、評選資訊、審查執照與相關商品"},
+  {k:"digital",n:"數位與 AI",h:"康軒官方數位平台、出題工具、電子書與影音頻道"},
+  {k:"fest",n:"節慶資源",h:"依節日整理的學習單、PPT、歌曲、影片與繪本"},
+  {k:"teach",n:"教學資源",h:"課程計畫、SEL、跨領域與繪本教案、講義、英檢"},
+  {k:"contact",n:"聯絡我們"}
+];
+const ARCHIVE_BEFORE="2024-01-01";
+const Y=u=>"https://youtu.be/"+u;
+
+const ITEMS=[
+/* ---------- 研習活動 ---------- */
+{c:"news",d:"2025-10-02",t:"康軒英語備課研習（U3–U4）線上報名",s:"老師敲碗已久的康軒英語備課研習，U3–U4 場次已安排好，開放線上報名。",L:[["立即報名","https://www.surveycake.com/s/r04q0"]]},
+{c:"news",d:"2025-10-02",t:"康軒 114 上學期國小研習場次",s:"國、數、自、社學科課程分享，加上 SEL、融合教育、教育人員法學素養的打氣專場。\n各場次於開課前兩週開放報名，請追蹤「康軒陪你教國小」粉絲專頁。",L:[["查看場次","https://www.facebook.com/share/p/1ZcFS3TzsJ/?mibextid=wwXIfr"]]},
+{c:"news",d:"2025-10-02",t:"國小普通班導師的融合教育班級經營策略",s:"講師：陳權滿老師（阿滿老師）\n時間：10/18（六）10:00–12:00，線上分享",L:[["報名表單","https://forms.gle/weeyavyweYvCH8SC8"]]},
+{c:"news",d:"2025-07-03",t:"康軒英語暑期線上備課研習",s:"康軒英語提早規劃好暑假線上研習，詳細場次都在報名連結裡。",L:[["報名連結","https://www.surveycake.com/s/bGp7l"]]},
+{c:"news",d:"2025-04-03",t:"康軒英語備課研習（下學期 U3–U4）",s:"下學期康軒各版 U3–U4 備課研習，開放線上報名。",L:[["報名連結","https://www.surveycake.com/s/oZZaW"]]},
+{c:"news",d:"2025-04-03",t:"康軒 4 月研習：名師學科分享 × AI 主題",s:"如何把數位融入備課和教學，讓 AI 成為教學好幫手。\n本系列線上分享無研習時數，部分課程無錄影。",L:[["研習網站","https://sites.google.com/knshbest.com.tw/2025winter"]]},
+{c:"news",d:"2024-11-28",t:"英語研習：素養導向評量",s:"講師：黃晶瑩老師（桃園同安國小）\n時間：12/6 19:00–21:00，線上",L:[["報名連結","https://www.surveycake.com/s/vNlxX"]]},
+{c:"news",d:"2024-02-01",t:"雙語教學線上研習營",s:"課程一：生活雙語課－一起擁抱校園大樹（Leslie 黃晶瑩老師）\n課程二：雙語科學動手做－CIRCUIT 電路交流（Cynthia 蔡余欣老師）\n含直播課程、教案電子檔、學習單。Google Meet 線上直播。",L:[["報名網址","https://gbf.tw/nqkcs"]]},
+{c:"news",d:"2024-01-10",t:"英語線上備課 PA2.0（112 下學期）",s:"新年度 112 下學期英語線上備課課程開放報名。",L:[["報名連結","https://www.surveycake.com/s/zLgex"]]},
+{c:"news",d:"2023-03-24",t:"康軒英語抽獎活動：WW5 單字尋寶著色",s:"結合 Wonder World 課本內容，完成 Pictures and Words Search 上傳 FB 參加抽獎。圖畫紙檔案請洽經銷商。",L:[["活動頁面","https://www.facebook.com/photo/?fbid=684122057051352&set=a.643826371080921"]]},
+{c:"news",d:"2022-09-02",t:"新手老師線上研習：班級經營與管理",s:"黃晶瑩老師分享座位分配、獎勵制度、教學進度安排、作業指派等新進老師要注意的細節。",L:[["報名處","https://www.surveycake.com/s/Gem7r"]]},
+{c:"news",d:"2022-08-02",t:"跨領域課程教案設計線上課程",s:"Leslie 黃晶瑩老師，低、中、高年級各一天，共 7.5 小時。含講義電子檔與《雙語教育：破除考科思維的 20 堂雙語課》。\n報名請 LINE 洽小編。",L:[]},
+
+/* ---------- 教材評選 ---------- */
+{c:"book",d:"2026-04-18",t:"115 學年教科書評選重點",s:"低年級全新 Super Team 教材上市。\n中、高年級 Wonder World 第 1、2、7、8 冊改版。\n教材特色、數位資源、好用程式與趣味遊戲，都在數位博覽會。",L:[["115 學年數位博覽會","https://qr.knsh.com.tw/DK6VI"],["AI 數位教材專刊","https://qr.knsh.com.tw/EAZMQ"]]},
+{c:"book",d:"2026-04-18",t:"Super Team 低年級教材線上介紹",s:"康軒國小英語 Super Team 教材線上展示頁。",L:[["看教材介紹","https://945cloud.knsh.com.tw/show/E/expo/inner-page.html?expo=textbook&subject=english&sub=low"]]},
+{c:"book",d:"2025-09-19",t:"康軒國小英語評量（家長日推薦）",s:"康軒獨家國小英語評量，讓學生更全方位練習。家長日時歡迎提供給有需要的家長。",L:[["產品說明","https://reurl.cc/ZVGMYa"],["康軒採購門市","https://www.knsh.com.tw/_Group/Distribution"]]},
+{c:"book",d:"2025-09-19",t:"熱門商品＆好康資訊專區",s:"手作、DIY 與活動相關商品資訊。",L:[["進入專區","https://padlet.com/angie26501/padlet-g3fmellqkj9hmj4w"]]},
+{c:"book",d:"2024-02-01",t:"Wonder World 作業簿",s:"提供孩子更多練習，目前有 3、4、5 年級。有意訂購請 LINE 洽詢。",L:[]},
+{c:"book",d:"2023-05-07",t:"康軒英語全系列通過審查",s:"康軒英語全系列通過審查，各版本審查字號與執照請見資料夾。各校皆會寄送樣書，若漏送歡迎告訴我們。",L:[["審查執照與資料表","https://drive.google.com/drive/folders/1z2yRKYD86m6ZlIrz8TkVe6FBW2EM4nAd?usp=sharing"]]},
+{c:"book",d:"2023-04-24",t:"112 康軒英語教材開箱（Cool ABC）",s:"一線老師對低年級教材的建議，以及美編經理介紹教材美感與四大亮點。",L:[["開箱播放清單","https://www.youtube.com/playlist?list=PLKIlp0SVMgOXi9-YSID3iSF4RugJFvumC"],["影片下載","https://drive.google.com/drive/folders/19C3Ew05moOF0_on01zZW1xSM_Zm-3baV?usp=share_link"]],G:{"單支影片":[["教師篇：低年級英語教學小撇步",Y("ZGC1Hys-TP8")],["教材特色亮點（全）",Y("Ibpc5bBxFWQ")],["亮點 1：學習好夥伴",Y("27BDG4-z68s")],["亮點 2：系統化色彩設計",Y("o2clYZ3xsp0")],["亮點 3：生活情境化設計",Y("R_NIQ9hG8-Y")],["亮點 4：遊戲化設計",Y("ePPRbT1fQKs")]]}},
+{c:"book",d:"2023-04-23",t:"KNSH Buzz! 特刊",s:"康軒英語季刊電子檔。",L:[["第九期 111(2)","https://drive.google.com/file/d/1YsCASY0e8gOME4MvIXKzHb2pOwzxIfz0/view?usp=share_link"],["第八期 111(1)","https://drive.google.com/file/d/1rItkONQCVDkEEfSzYvMij0aNSuQiTVSH/view?usp=share_link"]]},
+{c:"book",d:"2022-05-03",t:"各冊教材體驗與問卷",s:"低年級 Bravo ABC、Super Starter；中年級 Wonder World 1–4；高年級 Follow Me 5–10。",L:[["體驗問卷","https://www.surveycake.com/s/eAgWG"]],G:{"各冊體驗連結":[["Bravo ABC","https://reurl.cc/dXERp8"],["Super Starter","https://reurl.cc/velrGj"],["Wonder World 1–4","https://reurl.cc/rQmpoO"],["Follow Me 5–8","https://reurl.cc/k7Rmvx"],["Follow Me 9–10","https://reurl.cc/nE9kRd"]]}},
+
+/* ---------- 數位與 AI ---------- */
+{c:"digital",d:"2026-05-10",t:"康軒獨家 KUSE 平台",s:"整合臺灣教材與老師手邊素材，快速生成教案、測驗、學習單等教學內容。可上傳多種文件格式，結合康軒教材與多種 AI 模型。",L:[["KUSE 簡介","https://kuse.knsh.com.tw/"],["操作影片","https://player.vimeo.com/video/1188008968"]]},
+{c:"digital",d:"2026-04-18",t:"AI 高手專區全新升級",s:"關鍵字搜尋、快速篩選、工具分類索引、應用情境標籤，搭配 AI 工具提升備課效率。",L:[["立即體驗","https://aiteach.knsh.com.tw/index/"],["亮點影片","https://www.facebook.com/share/r/1AgPe2EY1N/"]]},
+{c:"digital",d:"2022-05-11",t:"康軒數位高手／國小備課高手",s:"康軒教學資源最齊全的入口。",L:[["數位高手","https://digitalmaster.knsh.com.tw/"],["國小備課高手","https://945cloud.knsh.com.tw/Resource.asp?EJ=E&Course=1"]]},
+{c:"digital",d:"2022-05-15",t:"康軒出題高手（線上出題）",s:"線上出題、建立班級、派卷與速測卷。教學影片以國中示範，國小登入介面相同。",L:[["出題高手登入","https://945cloud.knsh.com.tw/CloudOnlineExam_E/Login"]],G:{"教學影片":[["如何線上出題",Y("oBawFM5Lo-Y")],["建立班級、派卷",Y("zk1R2eajAUM")],["速測卷操作說明",Y("SWN_eB93CMc")]]}},
+{c:"digital",d:"2022-09-05",t:"康軒書櫃（線上書城）",s:"康軒電子書線上閱覽。",L:[["進入書櫃","https://webetextbook.knsh.com.tw/2/index.html?code_degree=3"]]},
+{c:"digital",d:"2022-05-24",t:"康軒英語影音頻道",s:"各系列教材的 YouTube 官方頻道。",L:[["Wonder World","https://www.youtube.com/channel/UC3R-44oFZvjDIeJTmaAKPsA"],["Follow Me","https://www.youtube.com/channel/UC_bfLv5lTnsTTZ9ZRVdYcUw"],["Bravo ABC","https://www.youtube.com/channel/UCCVGrX6LfW242ig890gB6hw"],["Super Starter","https://www.youtube.com/channel/UC4q7IQ9ik_eV0wm7JU_k4NQ"],["Gogo Starter","https://www.youtube.com/channel/UC1G9G6yoLiSbDdw81s_Z6fg"]]},
+{c:"digital",d:"2022-05-15",t:"數位學習區",s:"常用線上學習與遊戲化評量平台。",L:[["學習吧","https://reurl.cc/Kb3Kkn"],["因材網","https://adl.edu.tw/adl_material.php"],["Kahoot 題庫","https://digitalmaster.knsh.com.tw/test/quiz/kahoot/e/index6.html"],["Quizlet 題庫","https://digitalmaster.knsh.com.tw/test/quiz/quizlet/e/index.html"]]},
+{c:"digital",d:"2022-09-01",t:"111 康軒版英語電子書整片安裝版",s:"ISO 安裝檔，需下載至電腦使用。",L:[["雲端下載","https://drive.google.com/drive/folders/1twRM7xCthGoPcbiypg7DtJQZXFZnZds4"]]},
+{c:"digital",d:"2022-05-15",t:"教師用免帳密網頁版電子書（110 下學期）",s:"WW、FM、BA、SS 各冊課本與習作網頁版。",L:[],G:{"課本／習作":[["WW 第二冊 課本","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2201101656470%26202201100016"],["WW 第二冊 習作","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2201101700158%26202201100017"],["FM 第四冊 課本","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2112231005150%26202112230007"],["FM 第四冊 習作","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2112231005573%26202112230008"],["FM 第六冊 課本","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2112231006402%26202112230009"],["FM 第六冊 習作","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2112231007567%26202112230010"],["FM 第八冊 課本","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2112161221026%26202112160033"],["FM 第八冊 習作","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2112161219547%26202112160032"],["BA 第二冊 課本","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2112230950409%26202112230002"],["BA 第二冊 習作","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2112230954255%26202112230003"],["BA 第四冊 課本","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2112231003439%26202112230006"],["BA 第四冊 習作","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2112231002414%26202112230005"],["SS 第二冊 課本","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2112161227450%26202112160034"],["SS 第二冊 習作","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2112161230028%26202112160035"],["SS 第四冊 課本","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2112161355383%26202112160036"],["SS 第四冊 習作","https://webetextbook.knsh.com.tw/Ebookviewer4Student/Ebook.html?id=2112161404377%26202112160037"]]}},
+{c:"digital",d:"2022-05-03",t:"110 下期末考 Google 表單評量",s:"建立副本即匯入自己的雲端，可修改、線上發佈、自動批改。",L:[],G:{"各冊表單":[["Bravo ABC 2","https://shorturl.at/ijuE9"],["Bravo ABC 4","https://shorturl.at/ruxE7"],["Super Starter 2","https://shorturl.at/hFHK7"],["Super Starter 4","https://shorturl.at/lIJP4"],["Wonder World 2","https://shorturl.at/lnqNV"],["Follow Me 4","https://shorturl.at/aqNVY"],["Follow Me 6","https://shorturl.at/egDL5"],["Follow Me 8","https://shorturl.at/gtCJV"],["Follow Me 10","https://shorturl.at/hBORS"]]}},
+{c:"digital",d:"2022-05-15",t:"Google Meet、混成教學小技巧",s:"線上教學常見問題影片。",L:[["Meet 沒有聲音怎麼辦","https://www.youtube.com/watch?v=4XN4kFQ4JFc"],["混成教學提升品質","https://www.youtube.com/watch?v=AeNCgloc_zs"]]},
+{c:"digital",d:"2022-05-15",t:"防疫專區與 HK 講義 PDF",s:"防疫包與 HK 講義需下載至電腦解壓縮使用。",L:[["防疫專區","https://reurl.cc/rD6dxk"],["HK PDF 下載","https://drive.google.com/drive/folders/1VE4DNnZVDyAOM8_Zticq0bsC4_SEAhoJ"]]},
+
+/* ---------- 教學資源 ---------- */
+{c:"teach",d:"2026-04-18",t:"Super Team SEL 資源包",s:"低年級 Super Team 將 SEL 融入故事任務：表達感受、理解他人、合作解決問題。\n本次提供 SEL 學習單與 SEL 小書故事影片。",L:[["下載資源包","https://drive.google.com/drive/folders/1Oe9XR83MgxefH65KxT3dBjKg92AV5OVS?usp=sharing"]],tag:"SEL"},
+{c:"teach",d:"2025-11-25",t:"情緒主題素材（SEL）",s:"讓孩子用英文說出自己的情緒。含教案、閃卡、活動任務卡、趣味學習單。",L:[["下載素材","https://drive.google.com/drive/folders/1ZqVgP4jcyljJr0HSihw_NnmtO4VPQOR1?usp=drive_link"]],tag:"SEL"},
+{c:"teach",d:"2024-06-10",t:"113 學年課程計畫",s:"康軒國小英語 113 學年課程計畫下載。",L:[["雲端資料夾","https://drive.google.com/drive/folders/1LB1qG-RQVfKgfQXW8tINeTE-l8lbSNRn?usp=drive_link"]],tag:"課程計畫"},
+{c:"teach",d:"2024-04-03",t:"防災教育：Earthquake Drill 課文動畫",s:"Wonder World 第三冊 Earthquake Drill 課文動畫，地震後可帶孩子複習防災。",L:[["課文動畫",Y("bTcd5Y31kvs")]]},
+{c:"teach",d:"2024-03-01",t:"HK8 基礎紮根講義電子檔",s:"",L:[["雲端下載","https://drive.google.com/drive/folders/1oKCNXelui6-j2e8GVWpA1R8zMlrkjaXN?usp=drive_link"]],tag:"講義"},
+{c:"teach",d:"2024-02-17",t:"WW 系列跨領域＆繪本 PPT",s:"Wonder World 系列跨領域與繪本教學簡報。",L:[["雲端下載","https://drive.google.com/drive/folders/1bh4QE1IbAByDZ6JtWdtDCLtp3NP22c48?usp=drive_link"]],tag:"跨領域"},
+{c:"teach",d:"2024-02-17",t:"備課研習講義",s:"歷次備課研習的講義。",L:[["WW1 備課講義（楊書婷）","https://reurl.cc/5OXeoV"],["WW5 研習講義","https://reurl.cc/6QXW2d"],["WW3 研習講義","https://reurl.cc/My9X5v"],["Super Starter 1–3","https://padlet.com/hs12571/20221029-super-starter-1-3-5iiz46k6tjxy22a0"]],tag:"講義"},
+{c:"teach",d:"2023-11-01",t:"112 學年課程計畫（完整版／宜蘭縣版）",s:"",L:[["完整版","https://drive.google.com/drive/folders/1QXlG-sRjy6TkmNg85z-AEk_9tzO5HVm5?usp=share_link"],["宜蘭縣版","https://reurl.cc/1enb5Y"],["112 課程計畫資料夾","https://drive.google.com/drive/folders/1QbdCm00G2ZimpOVyuG7ueghl_eKBjk7_"]],tag:"課程計畫"},
+{c:"teach",d:"2023-06-27",t:"新課綱彈性課程教案參考",s:"繪本 250+（分低中高）、中高年級國家主題教案、Engoo 主題教材，以及外縣市一週一節跨領域彈性課程計畫。",L:[["繪本 250+","https://reurl.cc/0110gK"],["國家主題教案","https://reurl.cc/b9985M"],["Engoo 教材","https://engoo.com.tw/app/materials/en"]],G:{"跨領域彈性課程計畫":[["112(一) WW5 一週一節","https://e.pcloud.link/publink/show?code=XZbLufZjVee4XypYwLua9cvklpbMmBl4Bgy"],["112(二) WW6 一週一節","https://e.pcloud.link/publink/show?code=XZmLufZS6f4Bh0nOajzhW3kryR3lFCAVFAX"]]},tag:"跨領域"},
+{c:"teach",d:"2022-06-01",t:"Wonder World 1–4 彈性課程：繪本大驚奇、跨領域大發現",s:"搭配教材延伸主題，含教案、學習單、教學 PPT。",L:[["繪本大驚奇","https://bit.ly/2POE26X"],["跨領域大發現","https://bit.ly/39UVWMl"]],tag:"跨領域"},
+{c:"teach",d:"2022-06-01",t:"英語扣課繪本教案（全版本）",s:"康軒英語全版本教案、學習單、PPT。",L:[["開啟連結","https://reurl.cc/g2aqAp"]],tag:"繪本"},
+{c:"teach",d:"2022-05-17",t:"111 學年課程計畫",s:"",L:[["課程計畫表","https://bit.ly/3L1xMQB"],["課程計畫表（含彈性教案）","https://drive.google.com/drive/folders/1abTRBqgUBOKmNGCe3A6VCZtKa7A0M0S8"]],tag:"課程計畫"},
+{c:"teach",d:"2022-08-25",t:"CD 聆聽檢核表（111 上 WW、BA、SS）",s:"每天 10 分鐘在家聽 CD，讓學生在家複習更確實。",L:[["下載檢核表","https://bit.ly/3yZB8xD"]]},
+{c:"teach",d:"2022-08-25",t:"康軒英語 × 康軒生活 雙語資源",s:"A Day at School 跟著小怪獸學問好著色卡，把英語用在學校的一天。",L:[["粉專貼文","https://www.facebook.com/loveknsh/photos/p.3305003683103857/3305003683103857/"]],tag:"雙語"},
+{c:"teach",d:"2022-05-05",t:"低年級資源：BA & SS",s:"Bravo ABC 與 Super Starter 低年級補充資源。",L:[["Bravo Phonics 講義","https://drive.google.com/drive/folders/1RSaSBIStWnjvBom4WKRRh3-UdoQJN2UL?usp=sharing"],["低年級跨領域生活家","https://drive.google.com/drive/folders/1B-_pZ26Mtes2HlQkmu9whu5KwXdakx6E?usp=sharing"],["康軒低年級繪本","https://drive.google.com/drive/folders/1YfzJTLe8JU3NL8avisKd62t40MKD2u19?usp=sharing"]],tag:"低年級"},
+{c:"teach",d:"2022-05-05",t:"補充講義與學習單",s:"素養學習單、閱讀策略、讀者劇場、文法補充。",L:[["素養學習單","https://drive.google.com/drive/folders/1nVwPsP-BifDZfSGTV1Kj_zDrTY4539A2?usp=sharing"],["閱讀策略密集包","https://drive.google.com/drive/folders/1p-tKvfFrCVUbD6kfSGlP0qeQFhzkTp82?usp=sharing"],["讀者劇場即時通 1","https://drive.google.com/file/d/1Btmx9TqFavT3yN_QzEViuprnqGP0lnZp/view?usp=sharing"],["讀者劇場即時通 2","https://drive.google.com/file/d/1_RW4LNHo7hvgLMJmJZHSM99kTWkrYbpy/view?usp=sharing"],["過去式講義＋學習單","https://drive.google.com/drive/folders/1xos3G7YXRNLckfP6g-uQA5hYeHXho5F3?usp=sharing"],["RT 劇本與音檔","https://drive.google.com/file/d/1niHJ2Y3g1Rqel7Jm9usaqXg2F4_qGGV6/view?usp=sharing"]],tag:"講義"},
+{c:"teach",d:"2022-05-05",t:"英檢資源",s:"英語檢定考古題、大補帖與教學 PPT。",L:[["台中教育大學英檢（桃園考古題）","https://drive.google.com/drive/folders/17tP0F09WarnEpvgTdFIf0Mi6BSSuviFt?usp=sharing"],["英語檢定大補帖","https://drive.google.com/file/d/1dJk0yvPj4c3W5LscZxFyocqLNvrXgiCS/view?usp=sharing"],["康軒英檢 PPT","https://drive.google.com/file/d/1tE9Yj13FcnsRz1CmJZUwVcqfp4JMN7Jf/view?usp=sharing"]],tag:"英檢"},
+
+/* ---------- 節慶資源（f: 節日代碼）---------- */
+{c:"fest",f:"moon",d:"2025-09-19",t:"Happy Moon Festival! 中秋學習單＋外師影片",s:"認識節慶單字，用簡單英文說出中秋祝福。",L:[["下載學習單","https://qrcode.knsh.com.tw/r.asp?QID=N7X5Y"],["外師 Parker 認識中秋","https://rb.gy/fgdvqw"]],G:{"影片":[["Learn Mid-Autumn Festival Words",Y("DiluI5R_acg")],["Mid-Autumn Festival in Taiwan Explained",Y("HF2PCd0195Q")],["The Moon Festival Traditions and Origins",Y("3YBlTGEumCM")]],"歌曲":[["Sun, Moon, and Stars",Y("vcUyDAO1Fk0")],["Moon, Moon",Y("eWhq-Ko4LOo")],["Mid-Autumn Festival Song",Y("glYkYfyoB_Y")]],"繪本":[["The Shadow in the Moon",Y("OtJ4xkLdNh0")],["The Moon Gift",Y("joj2xiN3XhQ")],["Moon! Earth's Best Friend",Y("9kmN24zHLJI")]]}},
+{c:"fest",f:"national",d:"2024-10-03",t:"About National Day 雙十國慶學習單",s:"帶學生增進對國慶日的理解。",L:[["下載學習單","https://pse.is/6hmyqk"]]},
+{c:"fest",f:"halloween",d:"2025-10-22",t:"萬聖節主題字卡及學習單",s:"將萬聖節元素與課程連結。",L:[["下載字卡學習單","https://drive.google.com/drive/folders/1qHTCxxMSPjfqXsZAUQPRiCX-MH03Iucy?usp=sharing"]],G:{"歌曲":[["Knock Knock, Trick or Treat","https://www.youtube.com/watch?v=HdsxHxrDEzs"],["Sesame Street Monster Party","https://www.youtube.com/watch?v=rGP29b_JK3g"]],"影片":[["Let's Learn Halloween Words","https://www.youtube.com/watch?v=McEEGPZ1mWA"],["Petrified Pumpkin Seed Snack","https://www.youtube.com/watch?v=mluYPSKdCYE"]],"繪本":[["The Three Bears' Halloween",Y("1r3IVW9tKz0")],["The Whistling Scarecrow",Y("mN1y0vf-XHI")]]}},
+{c:"fest",f:"halloween",d:"2024-11-13",t:"康軒英語萬聖節資源包",s:"康軒英語獨家萬聖節教學資源。",L:[["下載資源包","https://reurl.cc/eyA3Ox"]],G:{"歌曲":[["Halloween Pumpkin Craft Song",Y("7u3FRvWj-G0")],["It's Halloween Night!",Y("34WAwKbDzfc")],["Who's at the Door?",Y("Va1rfqpF35Q")],["Trick or Treat Candy & Lollipop Song",Y("q9hFVBedc6g")]],"影片":[["Haunted Dollhouse Story",Y("R4mE4ZyOcTE")],["Halloween Piñata",Y("PSyyytDs6RA")],["Who's in the Pumpkin?",Y("fOHGG3kFJYI")],["Guess The Halloween Sound Quiz",Y("9FWwDYiIUEg")],["Halloween Guessing Game",Y("CSLtmx5em14")]],"繪本":[["The Little Old Lady Who Was Not Afraid of Anything",Y("tLaqATunm-E")],["The Runaway Pumpkin",Y("QuOlNjnu2Gc")],["Creepy Carrots!",Y("wokAWc-3EVM")],["Grumpy Pumpkin",Y("JAqXjdQ-Yv0")]]}},
+{c:"fest",f:"thanks",d:"2025-11-25",t:"康軒英語感恩節教學資源",s:"認識感恩節的故事、習俗與美食。含海報、單字卡、學習單、PPT。",L:[["下載資源","https://drive.google.com/drive/folders/1wcQ-Aj0LMBV3OKcTHHf-l7BaH4fH-Whn?usp=drive_link"]],G:{"影片":[["Thanksgiving Vocabulary for Kids",Y("dyfqrGHKb4c")],["Thanksgiving Story for Kids",Y("VvzMp5WUjls")],["The Mayflower Journey & The First Thanksgiving",Y("vwTdPTpgImQ")]]}},
+{c:"fest",f:"thanks",d:"2024-11-28",t:"Thanksgiving 感恩節主題學習單",s:"",L:[["下載學習單","https://pse.is/6rpwr7"]]},
+{c:"fest",f:"xmas",d:"2025-12-16",t:"X'mas is coming up! 聖誕學習單與精選影音",s:"精選歌曲、繪本、影片，搭配學習單感受節慶氛圍。",L:[["下載學習單","https://drive.google.com/drive/folders/114yQ8zh7amAdU8fWfK9gY45iuczohRMn?usp=drive_link"]],G:{"歌曲":[["ABC Christmas Song | Learn Phonics","https://reurl.cc/GGjbYv"],["Let's Go Caroling","https://reurl.cc/rK9Q81"],["The Gingerbread Cookie Dance!","https://reurl.cc/3bXjjL"]],"影片":[["Danny's Sleigh Ride Adventure!","https://reurl.cc/6bvENd"],["Christmas What Am I? Quiz","https://reurl.cc/2lYDEv"],["The Magical Tale of Santa's Reindeer","https://reurl.cc/NNQpRn"],["Blippi Saves Christmas!",Y("APWD3nCleeE")],["Blippi's Christmas Celebration!",Y("FGvb7XHtj6U")]],"繪本":[["Don't Push The Button: A Christmas Story","https://reurl.cc/mkMGM7"],["Sneezy the Snowman","https://reurl.cc/Dbjdl6"],["Merry Christmas, Splat!","https://reurl.cc/xKaOKZ"],["Christmas Train!",Y("qfeWFaD40Ag")],["Best Christmas Ever",Y("GIP-4KmTs7A")],["Don't Let the Pigeon Drive the Sleigh!",Y("MkrbbrTH_ks")]]}},
+{c:"fest",f:"xmas",d:"2024-12-20",t:"聖誕節主題學習單 Christmas Worksheets",s:"",L:[["下載學習單","https://pse.is/6v4xsy"]]},
+{c:"fest",f:"xmas",d:"2024-11-29",t:"康軒英語耶誕節資源包",s:"耶誕節海報、趣味學習單、互動教學 PPT、單字閃卡。",L:[["下載資源包","https://reurl.cc/xpgpYz"]],G:{"歌曲":[["C-H-R-I-S-T-M-A-S","https://ssurl.at/4234Bb"],["Let's Decorate Our Christmas Tree","https://ssurl.at/F1E932"],["Relaxing Christmas","https://ssurl.at/FF93de"]],"影片":[["Christmas Vocabulary","https://ssurl.at/FF93de"],["Christmas Around the World","https://ssurl.at/5Dfd7d"]],"繪本":[["Arctic Christmas","https://ssurl.at/E93feC"],["Christmas Train","https://ssurl.at/303aA7"]]}},
+{c:"fest",f:"xmas",d:"2022-12-03",t:"耶誕節教學資源（閃卡、海報、PPT、Green Christmas 小卡）",s:"",L:[["下載資源","https://reurl.cc/V1kGbZ"]],G:{"歌曲":[["Silent Night","https://reurl.cc/VR3Wn5"],["Let's Decorate Our Christmas Tree","https://reurl.cc/x1gm9e"],["Santa Claus is Coming to Town","https://reurl.cc/Z1QNdM"],["Hello Reindeer, Goodbye Snowman","https://reurl.cc/NGXxdp"],["I'm A Little Snowman","https://reurl.cc/kqVoAG"]],"影片":[["How CHRISTMAS Started?","https://reurl.cc/OEXRb3"],["Kids Vocabulary - Christmas","https://reurl.cc/91ZbXO"],["How to Write a Letter to Santa","https://cutt.ly/TejZ4mM"],["A Shorter Letter","https://reurl.cc/91Zb9O"],["Dragon's Merry Christmas","https://reurl.cc/85ye4o"]],"繪本":[["Santa's Lost Reindeer","https://reurl.cc/aa5XrX"],["Little Blue Truck's Christmas","https://reurl.cc/X5e2eE"],["Snowmen at Night","https://reurl.cc/OEX6A7"],["The Smallest Gift of Christmas","https://reurl.cc/KXx2My"]]}},
+{c:"fest",f:"easter",d:"2026-04-18",t:"Easter Teaching Kit 復活節教學資源",s:"主題海報、單字閃卡、教學 PPT、任務學習單、節慶教案。",L:[["下載資源","https://reurl.cc/YDl4Ao"]],G:{"影片":[["Why Do We Celebrate Easter?",Y("2bRw_DWITQs")],["Easter Vocabulary for Kids!",Y("BFKPq3UjzQY")],["The Easter Surprise",Y("uBBn5DpHHmM")]],"歌曲":[["Easter Song for Kids","https://reurl.cc/N2j5X5"],["Five Little Easter Eggs","https://reurl.cc/Dx9NvQ"],["Easter Counting Song for Kids","https://reurl.cc/bd5Z5d"]],"繪本":[["Pete the Cat Big Easter Adventure",Y("ubTNaQsy8Fg")],["How to Catch the Easter Bunny",Y("kVfNpa4GXzc")],["Pete the Cat and the Easter Basket Bandit",Y("5JBIwN-FWOo")]]}},
+{c:"fest",f:"easter",d:"2023-03-24",t:"康軒英語復活節教學資源包",s:"教學 PPT、活動海報、學習單。",L:[["下載資源包","https://reurl.cc/7RjnGl"]],G:{"遊戲":[["Easter Games","https://reurl.cc/eX5kpj"],["Easter True or False Game","https://reurl.cc/5MgR9G"],["Guess The Easter Word",Y("LTp9jQ3t8dQ")],["Easter Vocabulary","https://reurl.cc/EGKQkg"]],"歌曲":[["Easter Egg Hunt",Y("rov5t-aggeQ")],["Easter Song for Kids (lyrics)",Y("qvd78BKFOf0")],["Five Easter Eggs",Y("2_V3tZJEEes")],["This is The Way The Bunny Hops",Y("hb9tt7LiYrc")]],"影片":[["How to Make Chocolate Eggs",Y("NLTJYBGTlYQ")],["Easter Flash Cards",Y("Z8s0tgOB6G4")],["The Easter Holiday",Y("JTs5VjtcUVc")]],"繪本":[["The Great Eggscape!",Y("yoZU5QDDKsg")],["Pete the Cat Big Easter Adventure",Y("BakRa62GLbQ")],["The Biggest Easter Basket Ever",Y("i-Z7GQDu0xE")],["Here Comes the Easter Cat",Y("RAV9uMasNx8")],["The Night Before Easter",Y("y9ywlBp-0L8")]]}},
+{c:"fest",f:"earth",d:"2026-04-18",t:"地球日免費資源下載",s:"把愛地球的生活習慣，變成一堂有感的英語課。",L:[["下載資源","https://drive.google.com/drive/folders/13e91CTCCIkLn4ZuF8NEBDyK02CQERw65?usp=sharing"]],G:{"影片":[["Learn How to Celebrate the Earth!",Y("0grsaH2mVOc")],["What is Earth Day? (Kids Academy)",Y("QybeIE8eXSs")],["Earth Day Brain Break",Y("aN-WTzkGtU8")]],"歌曲":[["Earth Day Song | Rivers, Lakes and Seas",Y("-bx4dMz6Asg")],["Protect Our Planet",Y("yfhyXx1kCz0")],["Save Water",Y("BwIow9wNlws")]],"繪本":[["How The Crayons Saved The Earth",Y("qY8SPrW1yBg")],["Earth Day Birthday",Y("aA-obG2CAkQ")],["Bruce Saves the Planet",Y("RLDN6Crf0Q0")]]}},
+{c:"fest",f:"dragon",d:"2022-05-15",t:"端午節線上資源補充教學",s:"立蛋、午時水與端午習俗，外師介紹與教學資源。",L:[["外師介紹端午節","https://bit.ly/38UiI9n"],["端午節教學資源","https://bit.ly/3KTMsk4"]],G:{"歌曲":[["Dragon Boat Race",Y("16sdzjGoNXw")],["Dragon Boat Songs",Y("X2fxuOyTfOo")],["Row, Row, Row Your Boat",Y("_PF0ConaGJw")]],"影片":[["How Did Dragon Boat Festival Come About?","https://bit.ly/3ya3aGT"],["The Story of Chu Yuan","https://cutt.ly/DysAUxk"],["C's English Corner: Dragon Boat Festival","https://cutt.ly/zysAAvv"],["Paper Zongzi Sachet",Y("2YRxE1DokR8")]],"繪本":[["One Is a Drummer","https://bit.ly/3hnWmza"],["Dragon Boat Festival Wishes",Y("jHn85PWfGmM")],["Mulan: The Dragon Boat Race","https://bit.ly/3feD4K5"],["Busy Boats",Y("KCGMdBiiip8")],["Row, Row, Row Your Boat","https://bit.ly/2RVtJyD"]]}}
+];
+
+/* 節日：依學年順序，m 為會出現在「近期節慶」的月份 */
+const FESTS=[
+  {k:"moon",n:"中秋節",en:"Moon Festival",m:[9,10],when:"農曆八月十五"},
+  {k:"national",n:"國慶日",en:"National Day",m:[10],when:"10 月 10 日"},
+  {k:"halloween",n:"萬聖節",en:"Halloween",m:[10],when:"10 月 31 日"},
+  {k:"thanks",n:"感恩節",en:"Thanksgiving",m:[11],when:"11 月第四個星期四"},
+  {k:"xmas",n:"聖誕節",en:"Christmas",m:[12],when:"12 月 25 日"},
+  {k:"easter",n:"復活節",en:"Easter",m:[3,4],when:"3–4 月"},
+  {k:"earth",n:"地球日",en:"Earth Day",m:[4],when:"4 月 22 日"},
+  {k:"dragon",n:"端午節",en:"Dragon Boat Festival",m:[5,6],when:"農曆五月初五"}
+];
+
+const TOOLS=[
+  ["KUSE 平台","AI 生成教案與學習單","https://kuse.knsh.com.tw/"],
+  ["AI 高手專區","AI 備課工具索引","https://aiteach.knsh.com.tw/index/"],
+  ["數位高手","康軒教學資源入口","https://digitalmaster.knsh.com.tw/"],
+  ["出題高手","線上出題、派卷","https://945cloud.knsh.com.tw/CloudOnlineExam_E/Login"],
+  ["康軒書櫃","線上電子書","https://webetextbook.knsh.com.tw/2/index.html?code_degree=3"],
+  ["115 數位博覽會","新教材特色一次看","https://qr.knsh.com.tw/DK6VI"]
+];
+
+/* ============ 畫面邏輯 ============ */
+const $=s=>document.querySelector(s);
+const view=$("#view"), q=$("#q");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=d=>d.replace(/-/g,".");
+const NOW=new Date();
+const isNew=d=>(NOW-new Date(d))/864e5<=180;
+const catName=k=>(CATS.find(c=>c.k===k)||{}).n;
+const festOf=k=>FESTS.find(f=>f.k===k);
+const ext='target="_blank" rel="noopener"';
+const byDate=(a,b)=>b.d.localeCompare(a.d);
+
+function card(it,showCat){
+  const chip=showCat?`<span class="chip">${esc(it.c==="fest"?festOf(it.f).n:catName(it.c))}</span>`:(it.tag?`<span class="chip">${esc(it.tag)}</span>`:"");
+  const links=(it.L||[]).map((l,i)=>`<a class="btn${i===0?" primary":""}" href="${esc(l[1])}" ${ext}><span>${esc(l[0])}</span></a>`).join("");
+  const groups=it.G?`<div class="groups">${Object.entries(it.G).map(([g,arr])=>`<details class="g"><summary>${esc(g)} <em>${arr.length} 則</em></summary><ul>${arr.map(x=>`<li><a href="${esc(x[1])}" ${ext}>${esc(x[0])}</a></li>`).join("")}</ul></details>`).join("")}</div>`:"";
+  const noLink=!(it.L&&it.L.length)&&!it.G?`<p style="font-size:13px">需要資料請 <a href="#contact">LINE 洽詢</a></p>`:"";
+  return `<article class="card"><div class="meta"><span class="date">${fmt(it.d)}</span>${chip}${isNew(it.d)?'<span class="new">NEW</span>':""}</div><h3>${esc(it.t)}</h3>${it.s?`<p>${esc(it.s)}</p>`:""}${links?`<div class="links">${links}</div>`:""}${groups}${noLink}</article>`;
+}
+
+function listWithArchive(items){
+  const cur=items.filter(i=>i.d>=ARCHIVE_BEFORE), old=items.filter(i=>i.d<ARCHIVE_BEFORE);
+  let h=cur.length?`<div class="grid">${cur.map(i=>card(i)).join("")}</div>`:"";
+  if(old.length) h+=`<details class="archive"${cur.length?"":" open"}><summary>歷年資料（${old.length} 則，2022–2023，部分舊連結可能已失效）</summary><div class="grid">${old.map(i=>card(i)).join("")}</div></details>`;
+  return h;
+}
+
+function upcomingFests(){
+  const m=NOW.getMonth()+1, nx=m%12+1;
+  const list=FESTS.filter(f=>f.m.includes(m)||f.m.includes(nx));
+  return list.length?list:FESTS.slice(0,2);
+}
+
+function renderHome(){
+  const latest=ITEMS.filter(i=>i.c!=="fest").sort(byDate).slice(0,6);
+  const up=upcomingFests();
+  view.innerHTML=`
+  <div class="home-top">
+    <section class="panel">
+      <h2>最新消息</h2>
+      <ul class="newslist">${latest.map(i=>`<li><span class="date">${fmt(i.d)}</span><a href="#${i.c}">${esc(i.t)}</a></li>`).join("")}</ul>
+    </section>
+    <section class="panel season">
+      <h2>近期節慶<small>${NOW.getMonth()+1} 月備課用</small></h2>
+      <ul>${up.map(f=>`<li><a href="#fest-${f.k}">${f.n} ${esc(f.en)}<span>${f.when}・${ITEMS.filter(i=>i.f===f.k).length} 份資源</span></a></li>`).join("")}</ul>
+    </section>
+  </div>
+  <section>
+    <div class="sec-head"><h2>常用工具</h2><p>康軒官方平台，點了直接開</p></div>
+    <div class="tools">${TOOLS.map(t=>`<a class="tool" href="${esc(t[2])}" ${ext}><b>${esc(t[0])}</b><span>${esc(t[1])}</span></a>`).join("")}</div>
+  </section>
+  <section>
+    <div class="sec-head"><h2>分類瀏覽</h2><p>全站共 ${ITEMS.length} 則資源</p></div>
+    <div class="tools">${CATS.filter(c=>c.h).map(c=>`<a class="tool" href="#${c.k}"><b>${c.n}</b><span>${ITEMS.filter(i=>i.c===c.k).length} 則｜${esc(c.h)}</span></a>`).join("")}</div>
+  </section>`;
+}
+
+function renderCat(k){
+  const c=CATS.find(x=>x.k===k);
+  view.innerHTML=`<section><div class="sec-head"><h2>${c.n}</h2><p>${esc(c.h)}</p></div>${listWithArchive(ITEMS.filter(i=>i.c===k).sort(byDate))}</section>`;
+}
+
+function renderFest(){
+  const upKeys=upcomingFests().map(f=>f.k);
+  view.innerHTML=`<section><div class="sec-head"><h2>節慶資源</h2><p>依學年順序排列，螢光標示為近期節日</p></div>
+  <nav class="fest-nav">${FESTS.map(f=>`<a href="#fest-${f.k}" class="${upKeys.includes(f.k)?"now":""}">${f.n}</a>`).join("")}</nav>
+  ${FESTS.map(f=>{const its=ITEMS.filter(i=>i.f===f.k).sort(byDate);return `<div class="fest" id="fest-${f.k}"><div class="fest-h"><h3>${f.n}</h3><span class="en">${esc(f.en)}</span><span class="mo">${f.when}</span></div><div class="grid">${its.map(i=>card(i)).join("")}</div></div>`}).join('<div style="height:28px"></div>')}
+  </section>`;
+}
+
+function renderContact(){
+  view.innerHTML=`<section><div class="sec-head"><h2>聯絡我們</h2><p>康軒國小英語宜蘭經銷｜哈佛文教 昇學用品</p></div>
+  <div class="contact">
+    <div class="panel"><h2>康軒國小英語服務 LINE@</h2>
+      <p>定期發送最新線上研習、教學補充資源與新產品資訊。</p>
+      <div class="copyrow"><code id="lineid">@360ddhrm</code><button class="copybtn" data-copy="lineid" type="button">複製 ID</button></div>
+      <div class="links" style="margin-top:12px"><a class="btn primary" href="https://line.me/R/ti/p/@360ddhrm" ${ext}><span>加入 LINE@</span></a></div>
+      <p style="margin-top:14px">加入後請複製下方資料留言給我們：</p>
+      <div class="form-tpl" id="tpl">服務縣市：
+服務學校：
+教師中文姓名：
+教師 email：</div>
+      <button class="copybtn" data-copy="tpl" type="button">複製填寫範本</button>
+    </div>
+    <div class="panel"><h2>一對一服務群組</h2>
+      <p>Kenny 與 Angie（耿德與芸琪）夫妻代理康軒國小英語教科書。一對一群組可直接詢問教材、樣書、訂購，也提供教科書資訊；可善用關鍵字查詢。</p>
+      <div class="links"><a class="btn primary" href="https://lin.ee/Ox3m8u2" ${ext}><span>加入一對一群組</span></a><a class="btn" href="https://lin.ee/oslzmi2" ${ext}><span>雙語、節慶、教具、繪本資訊</span></a></div>
+    </div>
+    <div class="panel"><h2>業務窗口</h2>
+      <p>樣書漏送、訂購作業簿、需要特定檔案，都可以直接找我們。</p>
+      <div class="links"><a class="btn" href="https://line.me/ti/p/i7nmMi9i6S" ${ext}><span>Kenny 耿德 LINE</span></a><a class="btn" href="https://www.facebook.com/profile.php?id=100076003838060" ${ext}><span>哈佛文教 FB</span></a><a class="btn" href="https://www.knsh.com.tw/_Group/Distribution" ${ext}><span>康軒採購門市</span></a></div>
+    </div>
+  </div></section>`;
+}
+
+function renderSearch(term){
+  const t=term.trim().toLowerCase();
+  const hay=i=>[i.t,i.s,i.tag,i.c==="fest"?festOf(i.f).n+festOf(i.f).en:catName(i.c),...(i.L||[]).map(l=>l[0]),...Object.entries(i.G||{}).flatMap(([g,a])=>[g,...a.map(x=>x[0])])].join(" ").toLowerCase();
+  const res=ITEMS.filter(i=>t.split(/\s+/).every(w=>hay(i).includes(w))).sort(byDate);
+  view.innerHTML=`<section><div class="sec-head"><h2>搜尋「${esc(term.trim())}」</h2><p>找到 ${res.length} 則</p></div>${res.length?`<div class="grid">${res.map(i=>card(i,true)).join("")}</div>`:`<p class="empty">沒有找到相符的資源。換個關鍵字試試，或 <a href="#contact">LINE 問我們</a>。</p>`}</section>`;
+}
+
+function route(){
+  if(q.value.trim()){renderSearch(q.value);setTab(null);return;}
+  let h=(location.hash||"#home").slice(1), anchor=null;
+  if(h.startsWith("fest-")){anchor=h;h="fest";}
+  if(!CATS.some(c=>c.k===h)) h="home";
+  setTab(h);
+  if(h==="home")renderHome(); else if(h==="fest")renderFest(); else if(h==="contact")renderContact(); else renderCat(h);
+  if(anchor){const el=document.getElementById(anchor); if(el) el.scrollIntoView();} else window.scrollTo(0,0);
+}
+function setTab(k){document.querySelectorAll(".tabs a").forEach(a=>{if(a.dataset.k===k){a.setAttribute("aria-current","page");a.scrollIntoView({block:"nearest",inline:"nearest"});}else a.removeAttribute("aria-current");});}
+
+document.querySelector(".tabs").innerHTML=CATS.map(c=>`<a href="#${c.k}" data-k="${c.k}">${c.n}</a>`).join("");
+document.querySelector(".tabs").addEventListener("click",()=>{q.value="";});
+window.addEventListener("hashchange",route);
+let timer; q.addEventListener("input",()=>{clearTimeout(timer);timer=setTimeout(()=>{if(!q.value.trim())route();else{renderSearch(q.value);setTab(null);}},150);});
+view.addEventListener("click",e=>{
+  const b=e.target.closest("[data-copy]"); if(!b) return;
+  const el=document.getElementById(b.dataset.copy), txt=el.textContent;
+  const ok=()=>{b.textContent="已複製";setTimeout(()=>b.textContent=b.dataset.copy==="tpl"?"複製填寫範本":"複製 ID",1500);};
+  const fallback=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="已選取，請按複製";};
+  try{navigator.clipboard.writeText(txt).then(ok,fallback);}catch(err){fallback();}
+});
+route();
+</script>
+
+</body>
+</html>
