@@ -135,7 +135,7 @@ details.archive>summary{cursor:pointer;color:var(--muted);font-size:14px;margin-
 .gate-card h2{margin:0}
 .gate-card p{margin:0;color:var(--muted);font-size:14px}
 .gate-card label[for^="pw"]{font-weight:700;font-size:14px;margin-top:6px}
-.gate-card input.ans{font:inherit;font-size:16px;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.gate-card input.ans{width:100%;font:inherit;font-size:16px;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
 .remember{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
 .gate-card button{font:inherit;font-weight:700;font-size:15px;padding:11px;border:0;border-radius:8px;background:var(--accent);color:var(--surface);cursor:pointer}
 .gate-card button:disabled{opacity:.6;cursor:wait}
@@ -147,6 +147,8 @@ details.archive>summary{cursor:pointer;color:var(--muted);font-size:14px;margin-
 .pop-card p{margin:0;font-size:16px;line-height:1.8;white-space:pre-line}
 .pop-card button{font:inherit;font-weight:700;font-size:15px;padding:11px;border:0;border-radius:8px;background:var(--accent);color:var(--surface);cursor:pointer}
 @media (prefers-reduced-motion:no-preference){.pop-card{animation:popin .28s ease-out}@keyframes popin{from{transform:translateY(12px) scale(.96);opacity:.4}to{transform:none;opacity:1}}}
+.dest{font-size:13.5px;color:var(--muted)}
+.dest b{color:var(--accent)}
 #gateMsg{color:var(--red);font-size:14px;min-height:1.4em}
 .gate-help{border-top:1px dashed var(--line);padding-top:12px;font-size:13.5px;color:var(--muted);display:flex;flex-direction:column;gap:8px;align-items:flex-start}
 .linkbtn{font:inherit;font-size:12.5px;background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:0}
@@ -166,6 +168,16 @@ footer .wrap{padding-block:18px 28px;display:flex;flex-wrap:wrap;justify-content
   </div>
 </header>
 
+<div class="bar" id="bar">
+  <div class="wrap">
+    <label class="search" for="q">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6"/><path d="m13 13 5 5"/></svg>
+      <input id="q" type="search" placeholder="登入後可搜尋全站資源" autocomplete="off" aria-label="搜尋全站資源" disabled>
+    </label>
+    <nav class="tabs" aria-label="分類"></nav>
+  </div>
+</div>
+
 <div class="wrap gate" id="gate">
   <form class="panel gate-card" id="gateForm">
     <h2>宜蘭國小英語教師專區</h2>
@@ -174,7 +186,8 @@ footer .wrap{padding-block:18px 28px;display:flex;flex-wrap:wrap;justify-content
     <div class="ans-row"><input id="pw" class="ans" type="text" placeholder="輸入答案後按 Enter" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="next" required><span class="ok" id="q1ok" hidden>✓</span></div>
     <label for="pw2">2. 公司名稱叫什麼？</label>
     <input id="pw2" class="ans" type="text" placeholder="請輸入答案" autocomplete="off" autocapitalize="off" spellcheck="false" required>
-    <label class="remember" for="remember"><input id="remember" type="checkbox" checked> 記住這台裝置，下次免輸入</label>
+    <label class="remember" for="remember"><input id="remember" type="checkbox" checked> 記住這台裝置 30 天，期間免輸入</label>
+    <p class="dest" id="dest">登入後前往：<b id="destName">首頁</b>（可點上方選單切換）</p>
     <button type="submit" id="gateBtn">進入資訊網</button>
     <p id="gateMsg" role="alert"></p>
     <div class="gate-help">
@@ -189,16 +202,6 @@ footer .wrap{padding-block:18px 28px;display:flex;flex-wrap:wrap;justify-content
     <h3 id="popTitle"></h3>
     <p id="popBody"></p>
     <button type="button" id="popBtn">繼續回答第 2 題</button>
-  </div>
-</div>
-
-<div class="bar" id="bar" hidden>
-  <div class="wrap">
-    <label class="search" for="q">
-      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6"/><path d="m13 13 5 5"/></svg>
-      <input id="q" type="search" placeholder="搜尋：萬聖節、課程計畫、出題、Wonder World…" autocomplete="off" aria-label="搜尋全站資源">
-    </label>
-    <nav class="tabs" aria-label="分類"></nav>
   </div>
 </div>
 
@@ -307,7 +310,14 @@ function renderSearch(term){
   view.innerHTML=`<section><div class="sec-head"><h2>搜尋「${esc(term.trim())}」</h2><p>找到 ${res.length} 則</p></div>${res.length?`<div class="grid">${res.map(i=>card(i,true)).join("")}</div>`:`<p class="empty">沒有找到相符的資源。換個關鍵字試試，或 <a href="#contact">LINE 問我們</a>。</p>`}</section>`;
 }
 
+let unlocked=false;
 function route(){
+  if(!unlocked){
+    let h=(location.hash||"#home").slice(1); if(h.startsWith("fest-")) h="fest";
+    if(!CATS.some(c=>c.k===h)) h="home";
+    setTab(h); const n=$("#destName"); if(n) n.textContent=catName(h)||"首頁";
+    return;
+  }
   if(q.value.trim()){renderSearch(q.value);setTab(null);return;}
   let h=(location.hash||"#home").slice(1), anchor=null;
   if(h.startsWith("fest-")){anchor=h;h="fest";}
@@ -316,7 +326,7 @@ function route(){
   if(h==="home")renderHome(); else if(h==="fest")renderFest(); else if(h==="contact")renderContact(); else renderCat(h);
   if(anchor){const el=document.getElementById(anchor); if(el) el.scrollIntoView();} else window.scrollTo(0,0);
 }
-function setTab(k){document.querySelectorAll(".tabs a").forEach(a=>{if(a.dataset.k===k){a.setAttribute("aria-current","page");a.scrollIntoView({block:"nearest",inline:"nearest"});}else a.removeAttribute("aria-current");});}
+function setTab(k){document.querySelectorAll(".tabs a").forEach(a=>{if(a.dataset.k===k){a.setAttribute("aria-current","page");a.scrollIntoView({block:"nearest",inline:"center"});}else a.removeAttribute("aria-current");});}
 
 document.querySelector(".tabs").innerHTML=CATS.map(c=>`<a href="#${c.k}" data-k="${c.k}">${c.n}</a>`).join("");
 document.querySelector(".tabs").addEventListener("click",()=>{q.value="";});
@@ -331,7 +341,7 @@ view.addEventListener("click",e=>{
 });
 
 /* ============ 教師登入（問答） ============ */
-const KEY="knsh_yilan_pass2";
+const KEY="knsh_yilan_pass2", KEEP_DAYS=30;
 const b64=x=>Uint8Array.from(atob(x),c=>c.charCodeAt(0));
 const norm=pw=>pw.normalize("NFC").replace(/\s+/g,"").toLowerCase();
 async function unlock(a1,a2){
@@ -348,8 +358,9 @@ async function unlock(a1,a2){
   throw new Error("wrong");
 }
 function openSite(data){
-  ITEMS=data.ITEMS;FESTS=data.FESTS;TOOLS=data.TOOLS;CONTACT=data.CONTACT;
-  $("#gate").hidden=true;$("#bar").hidden=false;view.hidden=false;$("#logout").hidden=false;
+  ITEMS=data.ITEMS;FESTS=data.FESTS;TOOLS=data.TOOLS;CONTACT=data.CONTACT;unlocked=true;
+  $("#gate").hidden=true;view.hidden=false;$("#logout").hidden=false;
+  q.disabled=false;q.placeholder="搜尋：萬聖節、課程計畫、出題、Wonder World…";
   route();
 }
 /* 第 1 題答對：顯示浮動視窗（視窗文字也加密，只有答對才解得開） */
@@ -383,7 +394,7 @@ $("#gateForm").addEventListener("submit",async e=>{
   btn.disabled=true;msg.textContent="";
   try{
     const data=await unlock(a1,a2);
-    if($("#remember").checked){try{localStorage.setItem(KEY,JSON.stringify([a1,a2]));}catch(err){}}
+    if($("#remember").checked){try{localStorage.setItem(KEY,JSON.stringify({a:[a1,a2],exp:Date.now()+KEEP_DAYS*864e5}));}catch(err){}}
     openSite(data);
   }catch(err){
     msg.textContent=window.crypto&&crypto.subtle?"答案不對喔，再想想看！兩題都要答對，想不起來可以 LINE 問我們。":"這個瀏覽器無法開啟加密內容，請改用 Chrome、Safari 或 LINE 內建瀏覽器。";
@@ -392,7 +403,13 @@ $("#gateForm").addEventListener("submit",async e=>{
 $("#logout").addEventListener("click",()=>{try{localStorage.removeItem(KEY);}catch(err){} location.hash="";location.reload();});
 (async()=>{
   let saved=null;try{saved=localStorage.getItem(KEY);}catch(err){}
-  if(saved){try{const [x,y]=JSON.parse(saved);openSite(await unlock(x,y));return;}catch(err){try{localStorage.removeItem(KEY);}catch(e2){}}}
+  if(saved){try{
+    let v=JSON.parse(saved); if(Array.isArray(v)) v={a:v,exp:Date.now()+KEEP_DAYS*864e5};
+    if(!v.exp||v.exp<Date.now()) throw new Error("expired");
+    openSite(await unlock(v.a[0],v.a[1]));
+    try{localStorage.setItem(KEY,JSON.stringify(v));}catch(e3){}
+    return;}catch(err){try{localStorage.removeItem(KEY);}catch(e2){}}}
+  route();
   $("#pw").focus({preventScroll:true});
 })();
 </script>
