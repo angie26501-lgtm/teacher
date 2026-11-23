@@ -54,6 +54,7 @@ a{color:var(--accent)}
 .tabs a{flex:none;color:var(--chalk-dim);text-decoration:none;font-size:14px;padding:5px 12px;border-radius:999px;border:1px solid rgba(243,241,230,.22)}
 .tabs a[aria-current="page"]{background:var(--chalk);color:var(--board-2);border-color:var(--chalk);font-weight:700}
 .tabs a:hover{color:var(--chalk)}
+.tabs a.ext{border-style:dashed}
 
 main.wrap{padding-block:24px 56px}
 .sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px;margin:0 0 14px}
@@ -277,7 +278,7 @@ function renderHome(){
     </section>
   </div>
   <section>
-    <div class="sec-head"><h2>常用工具</h2><p>康軒官方平台，點了直接開</p></div>
+    <div class="sec-head"><h2>常用工具</h2><p>常用平台，點了直接開</p></div>
     <div class="tools">${TOOLS.map(t=>`<a class="tool" href="${esc(t[2])}" ${ext}><b>${esc(t[0])}</b><span>${esc(t[1])}</span></a>`).join("")}</div>
   </section>
   <section>
@@ -359,6 +360,7 @@ async function unlock(a1,a2){
 }
 function openSite(data){
   ITEMS=data.ITEMS;FESTS=data.FESTS;TOOLS=data.TOOLS;CONTACT=data.CONTACT;unlocked=true;
+  (data.NAV_LINKS||[]).forEach(([n,u])=>{const el=document.createElement("a");el.href=u;el.target="_blank";el.rel="noopener";el.className="ext";el.textContent=n;document.querySelector(".tabs").appendChild(el);});
   $("#gate").hidden=true;view.hidden=false;$("#logout").hidden=false;
   q.disabled=false;q.placeholder="搜尋：萬聖節、課程計畫、出題、Wonder World…";
   route();
